@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 
 from aiogram import types, Bot
 from aiogram.filters import Command
+from aiogram.types import ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
 from core.utils.statesvahta import StatesVahta
 
@@ -13,7 +14,8 @@ ADMIN_ID = getenv("ADMIN_ID")
 
 async def get_photo(message: types.Message, state: FSMContext):
     if message.from_user.id == int(ADMIN_ID):
-        await message.answer("Send a photo for vahta bg or /cancel to cancel.")
+        await message.answer("Send a photo for vahta bg or /cancel to cancel.",
+                             reply_markup=ReplyKeyboardRemove())
         await state.set_state(StatesVahta.GET_PHOTO)
     else:
          await message.answer("You are not authorized.")

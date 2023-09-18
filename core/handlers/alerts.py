@@ -25,11 +25,15 @@ async def alerts_handler(message: types.Message, bot: Bot):
         print(f"[{datetime.datetime.now()}] {zapor}")
         if zapor_status != zapor:
             zapor_status = zapor
-            await message.answer(f"Update!! {zapor}")
+            await message.answer(f"Alert update: {zapor}",
+                                 reply_markup=types.ReplyKeyboardRemove())
             if zapor == "active":
                 msg = await bot.send_video(DORM_CHAT_ID, 
-                                video="BAACAgIAAxkBAAEmB3JlBgLAVXsNL-BTjEMPE6Pk4YBN_AACNx4AAmqumUr1ey8JH10sPDAE", 
-                                caption="🚨 ТРИВОГА!!!!!")
+                                video="BAACAgIAAxkBAAEmB3JlBgLAVXsNL-BTjEMPE6Pk4YBN_AACNx4AAmqumUr1ey8JH10sPDAE")
+                await message.answer("🚨 <b>ТРИВОГА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</b>\n" +
+                                    "ПАКУЙТЕ СМАКОЛИКИ І У СХОВИЩЕ \n\n" +
+                                    "<tg-spoiler>або під ковдру на свій страх і ризик</tg-spoiler>", 
+                                    parse_mode="HTML")
                 await bot.pin_chat_message(DORM_CHAT_ID, msg.message_id, True)
             else:
                 if msg != None:

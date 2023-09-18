@@ -18,11 +18,15 @@ from core.handlers.alerts import alerts_router
 from core.handlers.faq import faq_router
 from core.handlers.vahta import vahta_router
 from core.handlers.draw_vahta import draw_vahta_router
+from core.handlers.admin_panel import admin_panel_router
 from core.handlers.cmd_stickers import bunt_sticker_router, rusoriz_sticker_router
-from core.handlers import update_vahta, msg_echo
+from core.handlers.donate import donate_router
+from core.handlers.msg_echo import msg_echo_router, msg_echo_pin_router
+from core.handlers.new_member import new_member_router
+from core.handlers import update_vahta
 from core.utils.statesvahta import StatesVahta
-# from core.utils.statesdrawvahta import StatesDrawVahta
-from core.utils.statesmsgecho import StatesMsgEcho
+from core.utils.commands import set_commands
+
 
 
 load_dotenv()
@@ -34,7 +38,7 @@ BOT_TOKEN = getenv("BOT_TOKEN")
 # bind localhost only to prevent any external access
 WEB_SERVER_HOST = getenv("WEB_SERVER_HOST")
 # Port for incoming request from reverse proxy. Should be any available port
-WEB_SERVER_PORT = 8350
+WEB_SERVER_PORT = 8443
 
 # Path to webhook route, on which Telegram will send requests
 WEBHOOK_PATH = f"/bot/{BOT_TOKEN}"
@@ -46,6 +50,7 @@ BASE_WEBHOOK_URL = getenv("BASE_WEBHOOK_URL")
 
 
 async def on_startup(bot: Bot) -> None:
+    await set_commands(bot)
     # If you have a self-signed SSL certificate, then you will need to send a public
     # certificate to Telegram
     await bot.set_webhook(f"{BASE_WEBHOOK_URL}{WEBHOOK_PATH}", secret_token=WEBHOOK_SECRET)
@@ -57,17 +62,6 @@ def main() -> None:
     dp.message.register(update_vahta.get_photo, Command(commands="update_vahta"))
     dp.message.register(update_vahta.save_photo, StatesVahta.GET_PHOTO)
 
-    # dp.message.register(draw_vahta.get_cell, Command(commands="draw_vahta"))
-    # dp.message.register(draw_vahta.get_char, StatesDrawVahta.GET_CHAR)
-    # dp.message.register(draw_vahta.get_row, StatesDrawVahta.GET_ROW)
-    # dp.message.register(draw_vahta.draw, StatesDrawVahta.GET_COLUMN)
-
-    dp.message.register(msg_echo.get_msg, Command(commands="msg_echo"))
-    dp.message.register(msg_echo.msg_echo, StatesMsgEcho.GET_MSG)
-
-    dp.message.register(msg_echo.get_msg_pin, Command(commands="msg_echo_pin"))
-    dp.message.register(msg_echo.msg_echo_pin, StatesMsgEcho.GET_MSG_PIN)
-
     # ... and all other routers should be attached to Dispatcher
     dp.include_router(start_router)
     dp.include_router(alerts_router)
@@ -76,12 +70,15 @@ def main() -> None:
     dp.include_router(draw_vahta_router)
     dp.include_router(bunt_sticker_router)
     dp.include_router(rusoriz_sticker_router)
-    
+    dp.include_router(admin_panel_router)
+    dp.include_router(msg_echo_router)
+    dp.include_router(msg_echo_pin_router)
+    dp.include_router(donate_router)
+    dp.include_router(new_member_router)
     
 
     # Register startup hook to initialize webhook
     dp.startup.register(on_startup)
-
     # Initialize Bot instance with a default parse mode which will be passed to all API calls
     bot = Bot(BOT_TOKEN, parse_mode=ParseMode.HTML)
 
@@ -104,6 +101,8 @@ def main() -> None:
 
     # And finally start webserver
     web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT)
+
+    
 
 
 if __name__ == "__main__":
