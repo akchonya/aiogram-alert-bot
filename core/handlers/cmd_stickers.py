@@ -9,3 +9,8 @@ async def bunt_sticker(message: types.Message):
     await message.answer_sticker(sticker="CAACAgIAAxkBAAEYRLBjKfNf9QtXKpeiBrBcSp5BNP2rwAACKiEAAgnVUUlHhGyMxOT0wykE")
 
 
+@rusoriz_sticker_router.message(Command("rusoriz"))
+async def rusorizt_sticker(message: types.Message):
+    await message.answer_sticker(sticker="CAACAgIAAxkBAAEmExNlCHyRvioQXW0ipPfqt9SK1nxGfwACUDcAAggFQEhQ1W5cnK9FlzAE")
+
+

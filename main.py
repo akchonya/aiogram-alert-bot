@@ -17,10 +17,11 @@ from core.handlers.start import start_router
 from core.handlers.alerts import alerts_router
 from core.handlers.faq import faq_router
 from core.handlers.vahta import vahta_router
-from core.handlers.cmd_stickers import bunt_sticker_router
-from core.handlers import update_vahta, draw_vahta, msg_echo
+from core.handlers.draw_vahta import draw_vahta_router
+from core.handlers.cmd_stickers import bunt_sticker_router, rusoriz_sticker_router
+from core.handlers import update_vahta, msg_echo
 from core.utils.statesvahta import StatesVahta
-from core.utils.statesdrawvahta import StatesDrawVahta
+# from core.utils.statesdrawvahta import StatesDrawVahta
 from core.utils.statesmsgecho import StatesMsgEcho
 
 
@@ -56,10 +57,10 @@ def main() -> None:
     dp.message.register(update_vahta.get_photo, Command(commands="update_vahta"))
     dp.message.register(update_vahta.save_photo, StatesVahta.GET_PHOTO)
 
-    dp.message.register(draw_vahta.get_cell, Command(commands="draw_vahta"))
-    dp.message.register(draw_vahta.get_char, StatesDrawVahta.GET_CHAR)
-    dp.message.register(draw_vahta.get_row, StatesDrawVahta.GET_ROW)
-    dp.message.register(draw_vahta.draw, StatesDrawVahta.GET_COLUMN)
+    # dp.message.register(draw_vahta.get_cell, Command(commands="draw_vahta"))
+    # dp.message.register(draw_vahta.get_char, StatesDrawVahta.GET_CHAR)
+    # dp.message.register(draw_vahta.get_row, StatesDrawVahta.GET_ROW)
+    # dp.message.register(draw_vahta.draw, StatesDrawVahta.GET_COLUMN)
 
     dp.message.register(msg_echo.get_msg, Command(commands="msg_echo"))
     dp.message.register(msg_echo.msg_echo, StatesMsgEcho.GET_MSG)
@@ -72,8 +73,9 @@ def main() -> None:
     dp.include_router(alerts_router)
     dp.include_router(faq_router)
     dp.include_router(vahta_router)
+    dp.include_router(draw_vahta_router)
     dp.include_router(bunt_sticker_router)
-    
+    dp.include_router(rusoriz_sticker_router)
     
     
 
