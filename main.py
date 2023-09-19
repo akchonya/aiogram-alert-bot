@@ -53,7 +53,9 @@ async def on_startup(bot: Bot) -> None:
     await set_commands(bot)
     # If you have a self-signed SSL certificate, then you will need to send a public
     # certificate to Telegram
-    await bot.set_webhook(f"{BASE_WEBHOOK_URL}{WEBHOOK_PATH}", secret_token=WEBHOOK_SECRET)
+    await bot.set_webhook(f"{BASE_WEBHOOK_URL}{WEBHOOK_PATH}", 
+                          secret_token=WEBHOOK_SECRET,
+                          allowed_updates=["message", "chat_member"])
 
 
 def main() -> None:
@@ -91,7 +93,7 @@ def main() -> None:
     webhook_requests_handler = SimpleRequestHandler(
         dispatcher=dp,
         bot=bot,
-        secret_token=WEBHOOK_SECRET,
+        secret_token=WEBHOOK_SECRET
     )
     # Register webhook handler on application
     webhook_requests_handler.register(app, path=WEBHOOK_PATH)

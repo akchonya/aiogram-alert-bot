@@ -30,7 +30,7 @@ async def alerts_handler(message: types.Message, bot: Bot):
             if zapor == "active":
                 msg = await bot.send_video(DORM_CHAT_ID, 
                                 video="BAACAgIAAxkBAAEmB3JlBgLAVXsNL-BTjEMPE6Pk4YBN_AACNx4AAmqumUr1ey8JH10sPDAE")
-                await message.answer("🚨 <b>ТРИВОГА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</b>\n" +
+                await bot.send_message(DORM_CHAT_ID, "🚨 <b>ТРИВОГА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</b>\n" +
                                     "ПАКУЙТЕ СМАКОЛИКИ І У СХОВИЩЕ \n\n" +
                                     "<tg-spoiler>або під ковдру на свій страх і ризик</tg-spoiler>", 
                                     parse_mode="HTML")
