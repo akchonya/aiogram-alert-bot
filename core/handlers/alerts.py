@@ -16,18 +16,18 @@ alerts_router = Router()
 
 @alerts_router.message(Command("alerts"))
 async def alerts_handler(message: types.Message, bot: Bot):
-    zapor_status = "start"
+    lviv_status = "start"
     msg = None
     while True:
         alerts_client = AsyncAlertsClient(token=ALERTS_TOKEN)
         active_alerts = await alerts_client.get_air_raid_alert_statuses_by_oblast()
-        zapor = str([alert for alert in active_alerts if alert.location_title == "Запорізька область"][0])[:-18]
-        print(f"[{datetime.datetime.now()}] {zapor}")
-        if zapor_status != zapor:
-            zapor_status = zapor
-            await message.answer(f"Alert update: {zapor}",
+        lviv = str([alert for alert in active_alerts if alert.location_title == "Львівська область"][0])[:-17]
+        print(f"[{datetime.datetime.now()}] {lviv}")
+        if lviv_status != lviv:
+            lviv_status = lviv
+            await message.answer(f"Alert update: {lviv}",
                                  reply_markup=types.ReplyKeyboardRemove())
-            if zapor == "active":
+            if lviv == "active":
                 msg = await bot.send_video(DORM_CHAT_ID, 
                                 video="BAACAgIAAxkBAAEmB3JlBgLAVXsNL-BTjEMPE6Pk4YBN_AACNx4AAmqumUr1ey8JH10sPDAE")
                 await bot.send_message(DORM_CHAT_ID, "🚨 <b>ТРИВОГА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</b>\n" +
