@@ -18,7 +18,7 @@ async def start_handler(message: types.Message):
 async def help_handler(message: types.Message):
     await message.answer(f"<b>привіт, {message.from_user.first_name}!</b>\n\n" +
                          "<b>ось список доступних команд:</b>\n" +
-                         "• /faq присилає корисню статтю\n" +
+                         "• /faq присилає корисну статтю\n" +
                          "• /vahta - графік вахтерів\n" +
                          "• /bunt i /rusoriz кидають відповідні стікери\n" +
                          "• за допомогою /donate можеш підтримати розробницю бота\n\n" +
