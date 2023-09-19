@@ -13,7 +13,7 @@ from aiogram.filters import Command
 from aiogram.types import Message
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 
-from core.handlers.start import start_router
+from core.handlers.start import start_router, help_router
 from core.handlers.alerts import alerts_router
 from core.handlers.faq import faq_router
 from core.handlers.vahta import vahta_router
@@ -77,6 +77,7 @@ def main() -> None:
     dp.include_router(msg_echo_pin_router)
     dp.include_router(donate_router)
     dp.include_router(new_member_router)
+    dp.include_router(help_router)
     
 
     # Register startup hook to initialize webhook
