@@ -17,10 +17,11 @@ async def start_handler(message: types.Message):
 @help_router.message(Command("help"))
 async def help_handler(message: types.Message):
     await message.answer(f"<b>привіт, {message.from_user.first_name}!</b>\n" +
-                         "ось список доступних команд:\n" +
-                         "/faq присилає корисню статтю\n" +
-                         "/vahta - графік вахтерів\n" +
-                         "/bunt i /rusoriz кидають відповідні стікери\n" +
-                         "за допомогою /donate можеш підтримати розробницю бота\n\n" +
+                         "<b>ось список доступних команд:</b>\n" +
+                         "• /faq присилає корисню статтю\n" +
+                         "• /vahta - графік вахтерів\n" +
+                         "• /bunt i /rusoriz кидають відповідні стікери\n" +
+                         "• за допомогою /donate можеш підтримати розробницю бота\n\n" +
                          "якщо маєш питання чи пропозиції - звертайся до @FleshkaXDude",
+                         parse_mode="HTML",
                          reply_markup=ReplyKeyboardRemove())
