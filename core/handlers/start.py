@@ -16,7 +16,7 @@ async def start_handler(message: types.Message):
 
 @help_router.message(Command("help"))
 async def help_handler(message: types.Message):
-    await message.answer(f"<b>привіт, {message.from_user.first_name}!</b>\n" +
+    await message.answer(f"<b>привіт, {message.from_user.first_name}!</b>\n\n" +
                          "<b>ось список доступних команд:</b>\n" +
                          "• /faq присилає корисню статтю\n" +
                          "• /vahta - графік вахтерів\n" +
