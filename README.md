@@ -17,6 +17,6 @@ A telegram Aiogram bot for pinning messages about air alert in Ukraine
 • greet a new chat member 
 
 ## What can an admin of this bot do:
-• update the watchmen's using commands
+• update the watchmen's schedule using commands
 
 • send messages to the chat and pin them on behalf of the bot
