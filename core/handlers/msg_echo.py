@@ -28,8 +28,8 @@ async def get_msg(message: Message, state: FSMContext) -> None:
         await message.answer("You are not authorized.")
 
 
-@msg_echo_router.message(Command("cancel"))
-@msg_echo_router.message(F.text.casefold() == "cancel")
+@msg_echo_router.message(Command("cancel"), StatesMsgEcho.GET_MSG)
+@msg_echo_router.message(F.text.casefold() == "cancel", StatesMsgEcho.GET_MSG)
 async def cancel_handler(message: Message, state: FSMContext) -> None:
     """
     Allow user to cancel any action
@@ -65,8 +65,8 @@ async def get_msg(message: Message, state: FSMContext) -> None:
         await message.answer("You are not authorized.")
 
 
-@msg_echo_pin_router.message(Command("cancel"))
-@msg_echo_pin_router.message(F.text.casefold() == "cancel")
+@msg_echo_pin_router.message(Command("cancel"), StatesMsgEcho.GET_MSG_PIN)
+@msg_echo_pin_router.message(F.text.casefold() == "cancel", StatesMsgEcho.GET_MSG_PIN)
 async def cancel_handler(message: Message, state: FSMContext) -> None:
     """
     Allow user to cancel any action

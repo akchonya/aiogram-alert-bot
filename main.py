@@ -61,15 +61,12 @@ async def on_startup(bot: Bot) -> None:
 def main() -> None:
     # Dispatcher is a root router
     dp = Dispatcher()
-    dp.message.register(update_vahta.get_photo, Command(commands="update_vahta"))
-    dp.message.register(update_vahta.save_photo, StatesVahta.GET_PHOTO)
 
     # ... and all other routers should be attached to Dispatcher
     dp.include_router(start_router)
     dp.include_router(alerts_router)
     dp.include_router(faq_router)
     dp.include_router(vahta_router)
-    dp.include_router(draw_vahta_router)
     dp.include_router(bunt_sticker_router)
     dp.include_router(rusoriz_sticker_router)
     dp.include_router(admin_panel_router)
@@ -78,7 +75,10 @@ def main() -> None:
     dp.include_router(donate_router)
     dp.include_router(new_member_router)
     dp.include_router(help_router)
-    
+    dp.include_router(draw_vahta_router)
+
+    dp.message.register(update_vahta.get_photo, Command(commands="update_vahta"))
+    dp.message.register(update_vahta.save_photo, StatesVahta.GET_PHOTO)
 
     # Register startup hook to initialize webhook
     dp.startup.register(on_startup)
