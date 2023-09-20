@@ -1,18 +1,24 @@
+'''
+/update_vahta is for changing the bg pic of /draw_vahta's pillow_bot function
+'''
+
+
 from os import getenv
 from dotenv import load_dotenv
 
 from aiogram import types, Bot
-from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
 from core.utils.statesvahta import StatesVahta
 
 
+# Getting the admin id from .env 
 load_dotenv()
 ADMIN_ID = getenv("ADMIN_ID")
 
-
+# Setting  the function and FSM
 async def get_photo(message: types.Message, state: FSMContext):
+    # Checking for admin's id 
     if message.from_user.id == int(ADMIN_ID):
         await message.answer("Send a photo for vahta bg or /cancel to cancel.",
                              reply_markup=ReplyKeyboardRemove())
@@ -24,6 +30,7 @@ async def save_photo(message: types.Message, state: FSMContext, bot: Bot):
         if message.from_user.id == int(ADMIN_ID):
             current_state = await state.get_state()
         
+            # A cancel option
             if message.text in ("/cancel", "cancel"):
                 if current_state is None:
                     return
@@ -32,6 +39,7 @@ async def save_photo(message: types.Message, state: FSMContext, bot: Bot):
                 await message.answer("/update_vahta is canceled.")
                 return
 
+            # Saving the picture locally 
             fileID = message.photo[-1].file_id
             file_info = await bot.get_file(fileID)
             downloaded_file = await bot.download_file(file_info.file_path)
@@ -39,6 +47,7 @@ async def save_photo(message: types.Message, state: FSMContext, bot: Bot):
             with open("pillow_bot/vahta.jpg", 'wb') as new_file:
                 new_file.write(downloaded_file.getvalue())
 
+            # Sending admin a success message 
             await message.answer("Done. Use /vahta to check")
             await state.clear()
 

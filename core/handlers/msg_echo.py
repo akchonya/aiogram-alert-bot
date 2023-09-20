@@ -1,3 +1,10 @@
+'''
+/msg_echo and /msg_echo_pin are admin commands
+You can send or send and pin any message to the chat
+on behalf of the bot
+'''
+
+
 from os import getenv
 from dotenv import load_dotenv
 
@@ -9,6 +16,7 @@ from aiogram.fsm.context import FSMContext
 from core.utils.statesmsgecho import StatesMsgEcho
 
 
+# Get ids from .env
 load_dotenv()
 ADMIN_ID = getenv("ADMIN_ID")
 DORM_CHAT_ID = getenv("DORM_CHAT_ID")
@@ -18,6 +26,7 @@ msg_echo_pin_router = Router()
 
 @msg_echo_router.message(Command("msg_echo"))
 async def get_msg(message: Message, state: FSMContext) -> None:
+    # Checking for admin's id
     if message.from_user.id == int(ADMIN_ID):
         await message.answer(
             "Send a message or type /cancel to cancel.",
@@ -55,6 +64,7 @@ async def process_chars(message: Message, state: FSMContext, bot: Bot) -> None:
 
 @msg_echo_pin_router.message(Command("msg_echo_pin"))
 async def get_msg(message: Message, state: FSMContext) -> None:
+    # Checking for admin's id
     if message.from_user.id == int(ADMIN_ID):
         await message.answer(
             "Send a message or type /cancel to cancel.",

@@ -1,3 +1,8 @@
+'''
+/faq sends a link to the FAQ article
+'''
+
+
 from aiogram import types, Router
 from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardRemove

@@ -1,3 +1,8 @@
+'''
+/vahta sends a picture of watchmen's schedule to the chat 
+'''
+
+
 from aiogram import types, Router
 from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardRemove

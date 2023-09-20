@@ -1,3 +1,9 @@
+'''
+/start greets a user 
+/help sends a list of aavailable commands
+'''
+
+
 from aiogram import types, Router
 from aiogram.filters import Command, CommandStart
 from aiogram.types import ReplyKeyboardRemove

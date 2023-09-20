@@ -1,3 +1,8 @@
+'''
+Setting an automatic send of a welcome message for each new user 
+'''
+
+
 from aiogram import F, Router
 from aiogram.filters import IS_MEMBER, IS_NOT_MEMBER, ChatMemberUpdatedFilter
 from aiogram.types import ChatMemberUpdated
