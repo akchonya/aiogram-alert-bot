@@ -42,9 +42,9 @@ async def alerts_handler(message: types.Message, bot: Bot):
             if lviv_status != lviv:
                 lviv_status = lviv
 
-                dt_now = datetime.now()
+                dt_now = datetime.datetime.now()
                 formatted_date = f"{dt_now.year}-{dt_now.month}-{dt_now.day} | {dt_now.hour}:{dt_now.minute}:{dt_now.second}"
-                
+
                 await message.answer(f"[{formatted_date}] Alert update: {lviv}",
                                     reply_markup=types.ReplyKeyboardRemove())
                 # If there is an alert - send and pin the video, then send a corresponding message 
