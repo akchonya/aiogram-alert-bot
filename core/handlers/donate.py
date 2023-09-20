@@ -1,3 +1,8 @@
+'''
+/donate sends donation details 
+'''
+
+
 from aiogram import types, Router
 from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardRemove

@@ -1,6 +1,3 @@
-"""
-This example shows how to use webhook on behind of any reverse proxy (nginx, traefik, ingress etc.)
-"""
 import logging
 import sys
 from os import getenv
@@ -28,34 +25,28 @@ from core.utils.statesvahta import StatesVahta
 from core.utils.commands import set_commands
 
 
-
 load_dotenv()
 
-# Bot token can be obtained via https://t.me/BotFather
 BOT_TOKEN = getenv("BOT_TOKEN")
 
-# Webserver settings
-# bind localhost only to prevent any external access
 WEB_SERVER_HOST = getenv("WEB_SERVER_HOST")
-# Port for incoming request from reverse proxy. Should be any available port
+# Port for incoming request from reverse proxy. 
 WEB_SERVER_PORT = 8443
 
 # Path to webhook route, on which Telegram will send requests
 WEBHOOK_PATH = f"/bot/{BOT_TOKEN}"
 # Secret key to validate requests from Telegram (optional)
 WEBHOOK_SECRET = getenv("WEBHOOK_SECRET")
-# Base URL for webhook will be used to generate webhook URL for Telegram,
-# in this example it is used public DNS with HTTPS support
 BASE_WEBHOOK_URL = getenv("BASE_WEBHOOK_URL")
 
 
 async def on_startup(bot: Bot) -> None:
     await set_commands(bot)
-    # If you have a self-signed SSL certificate, then you will need to send a public
-    # certificate to Telegram
+    # Set webhook 
     await bot.set_webhook(f"{BASE_WEBHOOK_URL}{WEBHOOK_PATH}", 
                           secret_token=WEBHOOK_SECRET,
-                          allowed_updates=["message", "chat_member"])
+                          allowed_updates=["message", "chat_member"] # allow updates needed
+                          )
 
 
 def main() -> None:
@@ -77,6 +68,7 @@ def main() -> None:
     dp.include_router(help_router)
     dp.include_router(draw_vahta_router)
 
+    # register other commands
     dp.message.register(update_vahta.get_photo, Command(commands="update_vahta"))
     dp.message.register(update_vahta.save_photo, StatesVahta.GET_PHOTO)
 

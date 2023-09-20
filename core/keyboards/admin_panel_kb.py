@@ -16,4 +16,5 @@ admin_panel_kb = ReplyKeyboardMarkup(keyboard=[
     [
         KeyboardButton(text="/alerts")
     ]
-])
+],
+resize_keyboard=True)
