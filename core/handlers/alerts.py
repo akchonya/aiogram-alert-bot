@@ -19,7 +19,7 @@ from aiogram import Bot
 load_dotenv()
 ALERTS_TOKEN = getenv("ALERTS_TOKEN")
 DORM_CHAT_ID = getenv("DORM_CHAT_ID")
-ADMIN_ID = getenv("ADMIN_ID ")
+ADMIN_ID = getenv("ADMIN_ID")
 
 alerts_router = Router()
 
