@@ -20,7 +20,7 @@ vahta_chars_kb = ReplyKeyboardMarkup(keyboard=[
 resize_keyboard=True
 )
 
-vahta_rows_bk = ReplyKeyboardMarkup(keyboard=[
+vahta_rows_kb = ReplyKeyboardMarkup(keyboard=[
         KeyboardButton(text="1"),
         KeyboardButton(text="2"),
         KeyboardButton(text="3"),
@@ -31,7 +31,7 @@ vahta_rows_bk = ReplyKeyboardMarkup(keyboard=[
     resize_keyboard=True    
 )
 
-vahta_columns_bk = ReplyKeyboardMarkup(keyboard=[
+vahta_columns_kb = ReplyKeyboardMarkup(keyboard=[
         KeyboardButton(text="1"),
         KeyboardButton(text="2"),
         KeyboardButton(text="3"),
