@@ -14,27 +14,25 @@ from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from core.utils.statesmsgecho import StatesMsgEcho
+from core.filters.basic import isAdmin
 
 
 # Get ids from .env
 load_dotenv()
-ADMIN_ID = getenv("ADMIN_ID")
 DORM_CHAT_ID = getenv("DORM_CHAT_ID")
+ADMIN_ID = getenv("ADMIN_ID")
 
 msg_echo_router = Router()
 msg_echo_pin_router = Router()
 
 @msg_echo_router.message(Command("msg_echo"))
 async def get_msg(message: Message, state: FSMContext) -> None:
-    # Checking for admin's id
-    if message.from_user.id == int(ADMIN_ID):
-        await message.answer(
-            "Send a message or type /cancel to cancel.",
-            reply_markup=ReplyKeyboardRemove()
-        )
-        await state.set_state(StatesMsgEcho.GET_MSG)
-    else:
-        await message.answer("You are not authorized.")
+    await message.answer(
+        "Send a message or type /cancel to cancel.",
+        reply_markup=ReplyKeyboardRemove()
+    )
+    await state.set_state(StatesMsgEcho.GET_MSG)
+
 
 
 @msg_echo_router.message(Command("cancel"), StatesMsgEcho.GET_MSG)

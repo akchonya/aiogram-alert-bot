@@ -12,11 +12,11 @@ from aiogram.types import (
     ReplyKeyboardRemove
 )
 from core.keyboards.draw_vahta_kb import vahta_chars_kb, vahta_rows_kb, vahta_columns_kb
+from core.filters.basic import isAdmin
 
 
 # Load admin id and dorm id from .env
 load_dotenv()
-ADMIN_ID = getenv("ADMIN_ID")
 DORM_CHAT_ID = getenv("DORM_CHAT_ID")
 
 draw_vahta_router = Router()
@@ -29,18 +29,15 @@ class StatesDrawVahta(StatesGroup):
     GET_COLUMN = State()
 
 
-@draw_vahta_router.message(Command("draw_vahta"))
+@draw_vahta_router.message(isAdmin(), Command("draw_vahta"))
 async def command_start(message: Message, state: FSMContext) -> None:
-    # Check for admin's id 
-    if message.from_user.id == int(ADMIN_ID):
-        await state.set_state(StatesDrawVahta.GET_CHAR)
-        await message.answer(
-            "Pick a characher or type /cancel to cancel.",
-                reply_markup=vahta_chars_kb,
-                resize_keyboard=True,
-            )
-    else:
-        await message.answer("You are not authorized.")
+    await state.set_state(StatesDrawVahta.GET_CHAR)
+    await message.answer(
+        "Pick a characher or type /cancel to cancel.",
+            reply_markup=vahta_chars_kb,
+            resize_keyboard=True,
+        )
+
 
 # A cancelation option
 @draw_vahta_router.message(Command("cancel"))

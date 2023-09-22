@@ -3,18 +3,18 @@ A command that shows an admin panel to an authorized user
 '''
 
 
-from aiogram import Router, F
+from aiogram import Router
 from aiogram.filters import Command
 
 from os import getenv
 from dotenv import load_dotenv
 
 from aiogram.types import (
-    Message,
-    ReplyKeyboardRemove
+    Message
 )
 
 from core.keyboards.admin_panel_kb import admin_panel_kb
+from core.filters.basic import isAdmin
 
 
 # Get the admin id
@@ -23,16 +23,11 @@ ADMIN_ID = getenv("ADMIN_ID")
 
 admin_panel_router = Router()
 
-@admin_panel_router.message(Command("admin_panel"))
+@admin_panel_router.message(isAdmin(), Command("admin_panel"))
 async def admin_panel(message: Message):
-    # Check if it's actually admin 
-    if message.from_user.id == int(ADMIN_ID):
-        await message.answer(
-            f"Hi, {message.from_user.first_name}! There is a list of admin commands:",
-            reply_markup=admin_panel_kb
-        )
-    else:
-        await message.answer(
-            f"Hi, {message.from_user.first_name}! You are not authorized.",
-            reply_markup=ReplyKeyboardRemove())
+    await message.answer(
+        f"Hi, {message.from_user.first_name}! There is a list of admin commands:",
+        reply_markup=admin_panel_kb
+    )
+
         
