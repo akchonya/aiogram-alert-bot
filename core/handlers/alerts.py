@@ -48,7 +48,7 @@ async def alerts_handler(message: types.Message, bot: Bot):
             # If there is an alert - send and pin the video, then send a corresponding message 
             if lviv == "active":
                 msg = await bot.send_video(DORM_CHAT_ID, 
-                                            video="BAACAgIAAxkBAAEmP_hlEKsdrCD---dbYU9gM0dm-cUq2wACNx4AAmqumUr1ey8JH10sPDAE")
+                                            video="BAACAgIAAxkBAAEmP_5lEKxi8qw07LBtzAZTZfRz9l-NxAACNx4AAmqumUr1ey8JH10sPDAE")
                 await bot.pin_chat_message(DORM_CHAT_ID, msg.message_id, True)
                 await bot.send_message(DORM_CHAT_ID, "🚨 <b>ТРИВОГА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</b>\n" +
                                     "ПАКУЙТЕ СМАКОЛИКИ І У СХОВИЩЕ \n\n" +
