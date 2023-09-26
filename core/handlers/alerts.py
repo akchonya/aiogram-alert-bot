@@ -6,6 +6,7 @@ Accessed only by an admin
 
 import asyncio
 import datetime
+import logging
 
 from os import getenv
 from dotenv import load_dotenv
@@ -35,6 +36,7 @@ async def alerts_handler(message: types.Message, bot: Bot):
         active_alerts = await alerts_client.get_air_raid_alert_statuses_by_oblast()
         # Get the Lviv status
         lviv = str([alert for alert in active_alerts if alert.location_title == "Львівська область"][0])[:-17]
+        logging.info(lviv)
         print(lviv)
 
         # If status changed - send the message to admin 
