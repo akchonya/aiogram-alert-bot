@@ -38,7 +38,6 @@ async def alerts_handler(bot: Bot):
         # Get the Lviv status
         lviv = str([alert for alert in active_alerts if alert.location_title == "Львівська область"][0])[:-17]
         logging.info(lviv)
-        print(lviv)
 
         # If status changed - send the message to admin 
         if lviv_status != lviv:
