@@ -6,7 +6,7 @@ from aiogram.types import BotCommand, BotCommandScopeDefault, BotCommandScopeCha
 
 
 load_dotenv()
-ADMIN_ID = getenv("ADMIN_ID")
+ADMIN_ID = getenv("ADMIN_ID").split(", ")
 
 commands = [
         BotCommand(
@@ -39,13 +39,21 @@ commands = [
         )
     ]
 
-admin_commands = commands.append(
+moderator_commands = commands.append(
     BotCommand(
         command="draw_vahta",
         description="додати вахтера на графік"
     )
 )
 
+admin_commands = commands.append(
+    BotCommand(
+        command="admin_panel",
+        description="admin_panel"
+    )
+)
+
 async def set_commands(bot: Bot):
     await bot.set_my_commands(commands, BotCommandScopeDefault())
-    await bot.set_my_commands(admin_commands, BotCommandScopeChat(int, ADMIN_ID.split(", ")))
+    await bot.set_my_commands(moderator_commands, BotCommandScopeChat(int, ADMIN_ID[1]))
+    await bot.set_my_commands(admin_commands, BotCommandScopeChat(int, ADMIN_ID[0]))
