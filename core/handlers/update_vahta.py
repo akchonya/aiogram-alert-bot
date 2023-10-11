@@ -10,16 +10,13 @@ from aiogram import types, Bot
 from aiogram.types import ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
 from core.utils.statesvahta import StatesVahta
+from core.filters.basic import isAdmin
 
-
-# Getting the admin id from .env 
-load_dotenv()
-ADMIN_ID = getenv("ADMIN_ID")
 
 # Setting  the function and FSM
 async def get_photo(message: types.Message, state: FSMContext):
     # Checking for admin's id 
-    if message.from_user.id == int(ADMIN_ID):
+    if message.from_user.id == 257750513:
         await message.answer("Send a photo for vahta bg or /cancel to cancel.",
                              reply_markup=ReplyKeyboardRemove())
         await state.set_state(StatesVahta.GET_PHOTO)
@@ -27,7 +24,7 @@ async def get_photo(message: types.Message, state: FSMContext):
          await message.answer("You are not authorized.")
 
 async def save_photo(message: types.Message, state: FSMContext, bot: Bot):
-        if message.from_user.id == int(ADMIN_ID):
+        if message.from_user.id == 257750513:
             current_state = await state.get_state()
         
             # A cancel option
