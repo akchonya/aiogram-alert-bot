@@ -1,9 +1,14 @@
+from os import getenv
+from dotenv import load_dotenv
+
 from aiogram import Bot
-from aiogram.types import BotCommand, BotCommandScopeDefault
+from aiogram.types import BotCommand, BotCommandScopeDefault, BotCommandScopeChat
 
 
-async def set_commands(bot: Bot):
-    commands = [
+load_dotenv()
+ADMIN_ID = getenv("ADMIN_ID")
+
+commands = [
         BotCommand(
             command="start",
             description="початок роботи"
@@ -34,4 +39,13 @@ async def set_commands(bot: Bot):
         )
     ]
 
+admin_commands = commands.append(
+    BotCommand(
+        command="draw_vahta",
+        description="додати вахтера на графік"
+    )
+)
+
+async def set_commands(bot: Bot):
     await bot.set_my_commands(commands, BotCommandScopeDefault())
+    await bot.set_my_commands(admin_commands, BotCommandScopeChat(int, ADMIN_ID.split(", ")))
