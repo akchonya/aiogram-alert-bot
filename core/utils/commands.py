@@ -117,5 +117,5 @@ admin_commands = moderator_commands = [
 
 async def set_commands(bot: Bot):
     await bot.set_my_commands(commands, BotCommandScopeDefault())
-    await bot.set_my_commands(moderator_commands, scope=BotCommandScopeChat(chat_id="dingdongx2"))
-    await bot.set_my_commands(admin_commands, scope=BotCommandScopeChat(chat_id="FleshkaXDude"))
+    await bot.set_my_commands(moderator_commands, scope=BotCommandScopeChat(chat_id="@dingdongx2"))
+    await bot.set_my_commands(admin_commands, scope=BotCommandScopeChat(chat_id="@FleshkaXDude"))
