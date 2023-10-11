@@ -47,6 +47,6 @@ async def save_photo(message: types.Message, state: FSMContext, bot: Bot):
             new_file.write(downloaded_file.getvalue())
 
         # Sending admin a success message 
-        # await message.answer("Done. Use /vahta to check")
+        await message.answer("Done. Use /vahta to check")
         await state.clear()
 
