@@ -41,12 +41,13 @@ BASE_WEBHOOK_URL = getenv("BASE_WEBHOOK_URL")
 
 async def on_startup(bot: Bot) -> None:
     await set_commands(bot)
+    await alerts_handler(bot)
     # Set webhook 
     await bot.set_webhook(f"{BASE_WEBHOOK_URL}{WEBHOOK_PATH}", 
                           secret_token=WEBHOOK_SECRET,
                           allowed_updates=["message", "chat_member"] # allow updates needed
                           )
-    await alerts_handler(bot)
+    
 
 
 def main() -> None:
