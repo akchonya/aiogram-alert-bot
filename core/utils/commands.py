@@ -42,19 +42,78 @@ commands = [
         )
     ]
 
-moderator_commands = commands.append(
-    BotCommand(
-        command="draw_vahta",
-        description="додати вахтера на графік"
-    )
-)
+moderator_commands = [
+        BotCommand(
+            command="start",
+            description="початок роботи"
+        ),
+        BotCommand(
+            command="help",
+            description="допомога наймолодшим"
+        ),
+        BotCommand(
+            command="faq",
+            description="корисна стаття"
+        ),
+        BotCommand(
+            command="vahta",
+            description="графік вахтерів"
+        ),
+        BotCommand(
+            command="bunt",
+            description="бунт"
+        ),
+        BotCommand(
+            command="rusoriz",
+            description="русоріз"
+        ),
+        BotCommand(
+            command="donate",
+            description="донати на підтримку бота"
+        ),
+        BotCommand(
+            command="draw_vahta",
+            description="додати вахтера на графік"
+        )
+    ]
 
-admin_commands = commands.append(
-    BotCommand(
-        command="admin_panel",
-        description="admin_panel"
-    )
-)
+
+
+
+admin_commands = moderator_commands = [
+        BotCommand(
+            command="start",
+            description="початок роботи"
+        ),
+        BotCommand(
+            command="help",
+            description="допомога наймолодшим"
+        ),
+        BotCommand(
+            command="faq",
+            description="корисна стаття"
+        ),
+        BotCommand(
+            command="vahta",
+            description="графік вахтерів"
+        ),
+        BotCommand(
+            command="bunt",
+            description="бунт"
+        ),
+        BotCommand(
+            command="rusoriz",
+            description="русоріз"
+        ),
+        BotCommand(
+            command="donate",
+            description="донати на підтримку бота"
+        ),
+        BotCommand(
+            command="admin_panel",
+            description="admin_panel"
+        )
+    ]
 
 async def set_commands(bot: Bot):
     await bot.set_my_commands(commands, BotCommandScopeDefault())
