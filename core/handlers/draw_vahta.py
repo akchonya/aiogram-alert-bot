@@ -40,8 +40,8 @@ async def command_start(message: Message, state: FSMContext) -> None:
 
 
 # A cancelation option
-@draw_vahta_router.message(Command("cancel"))
-@draw_vahta_router.message(F.text.casefold() == "cancel")
+@draw_vahta_router.message(isAdmin(), Command("cancel"))
+@draw_vahta_router.message(isAdmin(), F.text.casefold() == "cancel")
 async def cancel_handler(message: Message, state: FSMContext) -> None:
     """
     Allow user to cancel any action
@@ -107,7 +107,7 @@ async def process_row(message: Message, state: FSMContext, bot: Bot) -> None:
     await pillow_draw(char, row, column)
     # Send messages to an admin and the chat 
     await message.answer("Done. Use /vahta to check")
-    await bot.send_message(DORM_CHAT_ID, "/vahta оновлена.")
+    # await bot.send_message(DORM_CHAT_ID, "/vahta оновлена.")
     await state.clear()
 
 # Adress any unwanted answers

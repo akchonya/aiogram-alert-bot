@@ -25,7 +25,7 @@ ADMIN_ID = getenv("ADMIN_ID")
 msg_echo_router = Router()
 msg_echo_pin_router = Router()
 
-@msg_echo_router.message(Command("msg_echo"))
+@msg_echo_router.message(isAdmin(), Command("msg_echo"))
 async def get_msg(message: Message, state: FSMContext) -> None:
     await message.answer(
         "Send a message or type /cancel to cancel.",
@@ -60,7 +60,7 @@ async def process_chars(message: Message, state: FSMContext, bot: Bot) -> None:
         pass
     await state.clear()
 
-@msg_echo_pin_router.message(Command("msg_echo_pin"))
+@msg_echo_pin_router.message(isAdmin(), Command("msg_echo_pin"))
 async def get_msg(message: Message, state: FSMContext) -> None:
     # Checking for admin's id
     if message.from_user.id == int(ADMIN_ID):
