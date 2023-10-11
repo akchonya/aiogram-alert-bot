@@ -39,7 +39,6 @@ BASE_WEBHOOK_URL = getenv("BASE_WEBHOOK_URL")
 
 async def on_startup(bot: Bot) -> None:
     await set_commands(bot)
-    await alerts_handler(bot)
     # Set webhook 
     await bot.set_webhook(f"{BASE_WEBHOOK_URL}{WEBHOOK_PATH}", 
                           secret_token=WEBHOOK_SECRET,
@@ -48,7 +47,7 @@ async def on_startup(bot: Bot) -> None:
     
 
 
-async def main() -> None:
+def main() -> None:
     # Dispatcher is a root router
     dp = Dispatcher()
 
@@ -91,7 +90,7 @@ async def main() -> None:
     setup_application(app, dp, bot=bot)
 
     # And finally start webserver
-    await web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT)
+    web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT)
 
     
 
