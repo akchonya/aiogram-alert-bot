@@ -21,11 +21,12 @@ from core.filters.basic import isAdmin
 load_dotenv()
 ALERTS_TOKEN = getenv("ALERTS_TOKEN")
 DORM_CHAT_ID = getenv("DORM_CHAT_ID")
+ADMIN_ID = getenv("ADMIN_ID").split(", ")[0]
 
 alerts_router = Router()
 
 @alerts_router.message(isAdmin(), Command("alerts"))
-async def alerts_handler(message: types.Message, bot: Bot):
+async def alerts_handler(bot: Bot):
     # Setting a status variable
     lviv_status = "start"
     # msg is a variable to remember an id of pinned message to unpin it in the future
@@ -46,7 +47,7 @@ async def alerts_handler(message: types.Message, bot: Bot):
             dt_now = datetime.datetime.now()
             formatted_date = f"{dt_now.year}-{dt_now.month}-{dt_now.day}|{dt_now.hour}:{dt_now.minute}:{dt_now.second}"
 
-            await message.answer(f"[{formatted_date}] Alert update: {lviv}",
+            await bot.send_message(ADMIN_ID, f"[{formatted_date}] Alert update: {lviv}",
                                 reply_markup=types.ReplyKeyboardRemove())
             # If there is an alert - send and pin the video, then send a corresponding message 
             if lviv == "active":

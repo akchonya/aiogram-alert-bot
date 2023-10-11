@@ -11,17 +11,16 @@ from aiogram.types import Message
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 
 from core.handlers.start import start_router, help_router
-from core.handlers.alerts import alerts_router
+from core.handlers.alerts import alerts_router, alerts_handler
 from core.handlers.faq import faq_router
 from core.handlers.vahta import vahta_router
 from core.handlers.draw_vahta import draw_vahta_router
+from core.handlers.update_vahta import update_vahta_router
 from core.handlers.admin_panel import admin_panel_router
 from core.handlers.cmd_stickers import bunt_sticker_router, rusoriz_sticker_router
 from core.handlers.donate import donate_router
 from core.handlers.msg_echo import msg_echo_router, msg_echo_pin_router
 from core.handlers.new_member import new_member_router
-from core.handlers import update_vahta
-from core.utils.statesvahta import StatesVahta
 from core.utils.commands import set_commands
 
 
@@ -47,6 +46,7 @@ async def on_startup(bot: Bot) -> None:
                           secret_token=WEBHOOK_SECRET,
                           allowed_updates=["message", "chat_member"] # allow updates needed
                           )
+    await alerts_handler(bot)
 
 
 def main() -> None:
@@ -67,10 +67,7 @@ def main() -> None:
     dp.include_router(new_member_router)
     dp.include_router(help_router)
     dp.include_router(draw_vahta_router)
-
-    # register other commands
-    dp.message.register(update_vahta.get_photo, Command(commands="update_vahta"))
-    dp.message.register(update_vahta.save_photo, StatesVahta.GET_PHOTO)
+    dp.include_router(update_vahta_router)
 
     # Register startup hook to initialize webhook
     dp.startup.register(on_startup)
