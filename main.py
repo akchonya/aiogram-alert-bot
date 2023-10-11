@@ -6,8 +6,6 @@ import asyncio
 from aiohttp import web
 from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
-from aiogram.filters import Command
-from aiogram.types import Message
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 
 from core.handlers.start import start_router, help_router
@@ -50,7 +48,7 @@ async def on_startup(bot: Bot) -> None:
     
 
 
-def main() -> None:
+async def main() -> None:
     # Dispatcher is a root router
     dp = Dispatcher()
 
@@ -93,7 +91,7 @@ def main() -> None:
     setup_application(app, dp, bot=bot)
 
     # And finally start webserver
-    web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT)
+    await web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT)
 
     
 
