@@ -53,16 +53,11 @@ async def process_chars(message: Message, state: FSMContext, bot: Bot) -> None:
 
 @msg_echo_pin_router.message(isAdmin(), Command("msg_echo_pin"))
 async def get_msg(message: Message, state: FSMContext) -> None:
-    # Checking for admin's id
-    if message.from_user.id == int(ADMIN_ID):
-        await message.answer(
-            "Send a message or type /cancel to cancel.",
-            reply_markup=ReplyKeyboardRemove()
-        )
-        await state.set_state(StatesMsgEcho.GET_MSG_PIN)
-    else:
-        await message.answer("You are not authorized.")
-
+    await message.answer(
+        "Send a message or type /cancel to cancel.",
+        reply_markup=ReplyKeyboardRemove()
+    )
+    await state.set_state(StatesMsgEcho.GET_MSG_PIN)
 
 @msg_echo_pin_router.message(Command("cancel"), StatesMsgEcho.GET_MSG_PIN)
 @msg_echo_pin_router.message(F.text.casefold() == "cancel", StatesMsgEcho.GET_MSG_PIN)
