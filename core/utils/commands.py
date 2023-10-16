@@ -54,5 +54,5 @@ admin_commands = user_commands + [
 
 async def set_commands(bot: Bot):
     await bot.set_my_commands(user_commands, BotCommandScopeDefault())
-    await bot.set_my_commands(moderator_commands, scope=BotCommandScopeChat(chat_id=""))
-    await bot.set_my_commands(admin_commands, scope=BotCommandScopeChat(chat_id=""))
+    await bot.set_my_commands(moderator_commands, scope=BotCommandScopeChat(chat_id=MODER))
+    await bot.set_my_commands(admin_commands, scope=BotCommandScopeChat(chat_id=ADMIN))
