@@ -43,7 +43,7 @@ async def save_photo(message: types.Message, state: FSMContext, bot: Bot):
         file_info = await bot.get_file(fileID)
         downloaded_file = await bot.download_file(file_info.file_path)
 
-        with open("pillow_bot/vahta.jpg", 'wb') as new_file:
+        with open("pillow_bot/vahta.png", 'wb') as new_file:
             new_file.write(downloaded_file.getvalue())
 
         # Sending admin a success message 

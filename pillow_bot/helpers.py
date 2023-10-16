@@ -13,7 +13,7 @@ async def pillow_draw(char, h, w):
     img_w, img_h = img.size
 
     # Opening the bg
-    background = Image.open("pillow_bot/vahta.jpg")
+    background = Image.open("pillow_bot/vahta.png")
     bg_w, bg_h = background.size
 
     # Setting the position
@@ -21,6 +21,6 @@ async def pillow_draw(char, h, w):
 
     # Drawing and saving
     background.paste(img, offset, img)
-    background.save("pillow_bot/vahta.jpg")
+    background.save("pillow_bot/vahta.png")
 
 
