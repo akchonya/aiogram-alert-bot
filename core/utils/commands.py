@@ -1,12 +1,8 @@
-from os import getenv
-from dotenv import load_dotenv
-
 from aiogram import Bot
 from aiogram.types import BotCommand, BotCommandScopeDefault, BotCommandScopeChat
+from core.utils.config import ADMIN_ID
 
 
-load_dotenv()
-ADMIN_ID = getenv("ADMIN_ID")
 MODER = int(ADMIN_ID[1])
 ADMIN = int(ADMIN_ID[0])
 print(ADMIN_ID, ADMIN_ID[0], ADMIN_ID[1])

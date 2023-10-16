@@ -4,23 +4,14 @@ You can send or send and pin any message to the chat
 on behalf of the bot
 '''
 
-
-from os import getenv
-from dotenv import load_dotenv
-
-
 from aiogram import F, Router, Bot
 from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from core.utils.statesmsgecho import StatesMsgEcho
 from core.filters.basic import isAdmin
+from core.utils.config import DORM_CHAT_ID, ADMIN_ID
 
-
-# Get ids from .env
-load_dotenv()
-DORM_CHAT_ID = getenv("DORM_CHAT_ID")
-ADMIN_ID = getenv("ADMIN_ID")
 
 msg_echo_router = Router()
 msg_echo_pin_router = Router()

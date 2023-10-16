@@ -6,20 +6,14 @@ A command that shows an admin panel to an authorized user
 from aiogram import Router
 from aiogram.filters import Command
 
-from os import getenv
-from dotenv import load_dotenv
-
 from aiogram.types import (
     Message
 )
 
 from core.keyboards.admin_panel_kb import admin_panel_kb
 from core.filters.basic import isAdmin
+from core.utils.config import ADMIN_ID
 
-
-# Get the admin id
-load_dotenv()
-ADMIN_ID = getenv("ADMIN_ID")
 
 admin_panel_router = Router()
 

@@ -1,7 +1,5 @@
 import logging
 import sys
-from os import getenv
-from dotenv import load_dotenv
 import asyncio
 from aiohttp import web
 from aiogram import Bot, Dispatcher
@@ -20,21 +18,16 @@ from core.handlers.donate import donate_router
 from core.handlers.msg_echo import msg_echo_router, msg_echo_pin_router
 from core.handlers.new_member import new_member_router
 from core.utils.commands import set_commands
+from core.utils.config import BOT_TOKEN, WEB_SERVER_HOST, BASE_WEBHOOK_URL, WEBHOOK_SECRET
 
 
-load_dotenv()
 
-BOT_TOKEN = getenv("BOT_TOKEN")
-
-WEB_SERVER_HOST = getenv("WEB_SERVER_HOST")
 # Port for incoming request from reverse proxy. 
 WEB_SERVER_PORT = 8443
 
 # Path to webhook route, on which Telegram will send requests
 WEBHOOK_PATH = f"/bot/{BOT_TOKEN}"
 # Secret key to validate requests from Telegram (optional)
-WEBHOOK_SECRET = getenv("WEBHOOK_SECRET")
-BASE_WEBHOOK_URL = getenv("BASE_WEBHOOK_URL")
 
 
 async def on_startup(bot: Bot) -> None:
@@ -64,8 +57,8 @@ def main() -> None:
     dp.include_router(donate_router)
     dp.include_router(new_member_router)
     dp.include_router(help_router)
-    dp.include_router(draw_vahta_router)
     dp.include_router(update_vahta_router)
+    dp.include_router(draw_vahta_router)
 
     # Register startup hook to initialize webhook
     dp.startup.register(on_startup)

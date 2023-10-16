@@ -8,19 +8,13 @@ import asyncio
 import datetime
 import logging
 
-from os import getenv
-from dotenv import load_dotenv
 from alerts_in_ua import AsyncClient as AsyncAlertsClient
 from aiogram import types, Router
 from aiogram.filters import Command
 from aiogram import Bot
 from core.filters.basic import isAdmin
+from core.utils.config import ALERTS_TOKEN, DORM_CHAT_ID
 
-
-# Getting the admin id, dorm chat id and the api token from .env
-load_dotenv()
-ALERTS_TOKEN = getenv("ALERTS_TOKEN")
-DORM_CHAT_ID = getenv("DORM_CHAT_ID")
 
 alerts_router = Router()
 

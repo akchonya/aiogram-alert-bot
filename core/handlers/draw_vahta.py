@@ -1,6 +1,3 @@
-from os import getenv
-from dotenv import load_dotenv
-
 from pillow_bot.helpers import pillow_draw
 
 from aiogram import F, Router, Bot
@@ -13,11 +10,8 @@ from aiogram.types import (
 )
 from core.keyboards.draw_vahta_kb import vahta_chars_kb, vahta_rows_kb, vahta_columns_kb
 from core.filters.basic import isAdmin
+from core.utils.config import DORM_CHAT_ID
 
-
-# Load admin id and dorm id from .env
-load_dotenv()
-DORM_CHAT_ID = getenv("DORM_CHAT_ID")
 
 draw_vahta_router = Router()
 
@@ -79,7 +73,7 @@ async def process_row(message: Message, state: FSMContext) -> None:
     await state.set_state(StatesDrawVahta.GET_COLUMN)
     await state.update_data(row=message.text)
     await message.answer(
-        f"OK, you picked {message.text} row. Now choose a column:",
+        f"OK, you picked row {message.text}. Now choose a column:",
         reply_markup=vahta_columns_kb
     )
 
@@ -93,7 +87,7 @@ columns = ("1", "2", "3", "4", "5", "6", "7")
 @draw_vahta_router.message(StatesDrawVahta.GET_COLUMN, F.text.in_(columns))
 async def process_row(message: Message, state: FSMContext, bot: Bot) -> None:
     await message.answer(
-        f"OK, you picked {message.text} column. Drawing..",
+        f"OK, you picked column {message.text}. Drawing..",
         reply_markup=ReplyKeyboardRemove()
         )
     
