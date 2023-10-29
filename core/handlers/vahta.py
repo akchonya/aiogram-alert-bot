@@ -23,3 +23,6 @@ async def vahta_text_handler(message: types.Message):
                                "якщо так - тримайте ось графік вахтерів на сьогодні.\n\n" +
                                "а на майбутнє - користуйтеся /vahta")
 
+@vahta_router.message(F.text.casefold().contains("експертиз"))
+async def eblan(message: types.Message):
+    await message.answer("<b>нагадування:</b> експертиза уєбан", parse_mode="HTML")
