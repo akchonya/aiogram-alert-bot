@@ -43,8 +43,9 @@ async def alerts_handler(message: types.Message, bot: Bot):
                                 reply_markup=types.ReplyKeyboardRemove())
             # If there is an alert - send and pin the video, then send a corresponding message 
             if lviv == "active":
+                video = types.FSInputFile("pillow_bot/alert.mp4")
                 msg = await bot.send_video(DORM_CHAT_ID, 
-                                            video="BAACAgIAAxkBAAEnKI1lPL8RCTUG9hM9SPDprmvqAAGZZVcAAjceAAJqrplK9XsvCR9dLDwwBA")
+                                            video=video)
                 await bot.pin_chat_message(DORM_CHAT_ID, msg.message_id, True)
                 await bot.send_message(DORM_CHAT_ID, "🚨 <b>ТРИВОГА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</b>\n" +
                                     "ПАКУЙТЕ СМАКОЛИКИ І У СХОВИЩЕ \n\n" +

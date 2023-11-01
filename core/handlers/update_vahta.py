@@ -2,12 +2,12 @@
 /update_vahta is for changing the bg pic of /draw_vahta's pillow_bot function
 '''
 
-from aiogram import types, Bot, Router, F
-from aiogram.types import ReplyKeyboardRemove
-from aiogram.fsm.context import FSMContext
-from core.utils.statesvahta import StatesVahta
-from core.filters.basic import isAdmin
+from aiogram import Bot, F, Router, types
 from aiogram.filters import Command
+from aiogram.fsm.context import FSMContext
+from aiogram.types import ReplyKeyboardRemove
+from core.filters.basic import isAdmin
+from core.utils.statesvahta import StatesVahta
 
 
 update_vahta_router = Router()
