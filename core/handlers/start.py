@@ -8,6 +8,8 @@ from aiogram import types, Router
 from aiogram.filters import Command, CommandStart
 from aiogram.types import ReplyKeyboardRemove
 
+from ..utils.config import ADMIN_IDS
+
 
 start_router = Router()
 help_router = Router()
@@ -28,6 +30,6 @@ async def help_handler(message: types.Message):
                          "• /vahta - графік вахтерів\n" +
                          "• /bunt i /rusoriz кидають відповідні стікери\n" +
                          "• за допомогою /donate можеш підтримати розробницю бота\n\n" +
-                         "якщо маєш питання чи пропозиції - звертайся до @FleshkaXDude",
+                         f"якщо маєш питання чи пропозиції - <a href='tg://user?id={ADMIN_IDS[0]}'>звертайся</a>",
                          parse_mode="HTML",
                          reply_markup=ReplyKeyboardRemove())

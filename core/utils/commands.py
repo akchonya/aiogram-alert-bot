@@ -1,11 +1,10 @@
 from aiogram import Bot
 from aiogram.types import BotCommand, BotCommandScopeDefault, BotCommandScopeChat
-from core.utils.config import ADMIN_ID
+from core.utils.config import ADMIN_IDS
 
 
-ADMIN_ID = list(map(int, ADMIN_ID.split(", ")))
-MODER = int(ADMIN_ID[1])
-ADMIN = int(ADMIN_ID[0])
+MODER = int(ADMIN_IDS[1])
+ADMIN = int(ADMIN_IDS[0])
 
 user_commands = [
         BotCommand(

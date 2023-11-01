@@ -12,7 +12,6 @@ from aiogram.types import (
 
 from core.keyboards.admin_panel_kb import admin_panel_kb
 from core.filters.basic import isAdmin
-from core.utils.config import ADMIN_ID
 
 
 admin_panel_router = Router()

@@ -10,7 +10,7 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from core.utils.statesmsgecho import StatesMsgEcho
 from core.filters.basic import isAdmin
-from core.utils.config import DORM_CHAT_ID, ADMIN_ID
+from core.utils.config import DORM_CHAT_ID
 
 
 msg_echo_router = Router()
@@ -46,7 +46,7 @@ async def process_chars(message: Message, state: FSMContext, bot: Bot) -> None:
     try:
         # Send a copy of the received message
         await message.send_copy(chat_id=DORM_CHAT_ID)
-        await bot.send_message(ADMIN_ID, "Message is sent.")
+        await message.answer("Message is sent.")
     except TypeError:
         pass
     await state.clear()
@@ -80,7 +80,7 @@ async def process_chars(message: Message, state: FSMContext, bot: Bot) -> None:
         # Send a copy of the received message
         msg = await message.send_copy(chat_id=DORM_CHAT_ID)
         await bot.pin_chat_message(DORM_CHAT_ID, msg.message_id, True)
-        await bot.send_message(ADMIN_ID, "Message is sent and pinned.")
+        await message.answer("Message is sent and pinned.")
     except TypeError:
         pass
     await state.clear()
