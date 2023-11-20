@@ -1,9 +1,10 @@
-'''
+"""
 The funcion draws a chosen character on vahta bg in the chosen cell
-'''
+"""
 
 
 from PIL import Image
+
 
 async def pillow_draw(char, h, w):
     w = int(w)
@@ -22,5 +23,3 @@ async def pillow_draw(char, h, w):
     # Drawing and saving
     background.paste(img, offset, img)
     background.save("pillow_bot/vahta.png")
-
-

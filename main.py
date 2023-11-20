@@ -7,7 +7,7 @@ from aiogram.enums import ParseMode
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 
 from core.handlers.start import start_router, help_router
-from core.handlers.alerts import alerts_router, alerts_handler
+from core.handlers.alerts import alerts_router
 from core.handlers.faq import faq_router
 from core.handlers.vahta import vahta_router
 from core.handlers.draw_vahta import draw_vahta_router
@@ -17,12 +17,17 @@ from core.handlers.cmd_stickers import bunt_sticker_router, rusoriz_sticker_rout
 from core.handlers.donate import donate_router
 from core.handlers.msg_echo import msg_echo_router, msg_echo_pin_router
 from core.handlers.new_member import new_member_router
+from core.handlers.hello import router as hello_router
 from core.utils.commands import set_commands
-from core.utils.config import BOT_TOKEN, WEB_SERVER_HOST, BASE_WEBHOOK_URL, WEBHOOK_SECRET
+from core.utils.config import (
+    BOT_TOKEN,
+    WEB_SERVER_HOST,
+    BASE_WEBHOOK_URL,
+    WEBHOOK_SECRET,
+)
 
 
-
-# Port for incoming request from reverse proxy. 
+# Port for incoming request from reverse proxy.
 WEB_SERVER_PORT = 8443
 
 # Path to webhook route, on which Telegram will send requests
@@ -32,12 +37,12 @@ WEBHOOK_PATH = f"/bot/{BOT_TOKEN}"
 
 async def on_startup(bot: Bot) -> None:
     await set_commands(bot)
-    # Set webhook 
-    await bot.set_webhook(f"{BASE_WEBHOOK_URL}{WEBHOOK_PATH}", 
-                          secret_token=WEBHOOK_SECRET,
-                          allowed_updates=["message", "chat_member"] # allow updates needed
-                          )
-    
+    # Set webhook
+    await bot.set_webhook(
+        f"{BASE_WEBHOOK_URL}{WEBHOOK_PATH}",
+        secret_token=WEBHOOK_SECRET,
+        allowed_updates=["message", "chat_member"],  # allow updates needed
+    )
 
 
 def main() -> None:
@@ -45,20 +50,23 @@ def main() -> None:
     dp = Dispatcher()
 
     # ... and all other routers should be attached to Dispatcher
-    dp.include_router(start_router)
-    dp.include_router(alerts_router)
-    dp.include_router(faq_router)
-    dp.include_router(vahta_router)
-    dp.include_router(bunt_sticker_router)
-    dp.include_router(rusoriz_sticker_router)
-    dp.include_router(admin_panel_router)
-    dp.include_router(msg_echo_router)
-    dp.include_router(msg_echo_pin_router)
-    dp.include_router(donate_router)
-    dp.include_router(new_member_router)
-    dp.include_router(help_router)
-    dp.include_router(update_vahta_router)
-    dp.include_router(draw_vahta_router)
+    dp.include_routers(
+        start_router,
+        alerts_router,
+        faq_router,
+        vahta_router,
+        bunt_sticker_router,
+        rusoriz_sticker_router,
+        admin_panel_router,
+        msg_echo_router,
+        msg_echo_pin_router,
+        donate_router,
+        new_member_router,
+        help_router,
+        update_vahta_router,
+        draw_vahta_router,
+        hello_router,
+    )
 
     # Register startup hook to initialize webhook
     dp.startup.register(on_startup)
@@ -72,9 +80,7 @@ def main() -> None:
     # aiogram has few implementations for different cases of usage
     # In this example we use SimpleRequestHandler which is designed to handle simple cases
     webhook_requests_handler = SimpleRequestHandler(
-        dispatcher=dp,
-        bot=bot,
-        secret_token=WEBHOOK_SECRET
+        dispatcher=dp, bot=bot, secret_token=WEBHOOK_SECRET
     )
     # Register webhook handler on application
     webhook_requests_handler.register(app, path=WEBHOOK_PATH)
@@ -84,8 +90,6 @@ def main() -> None:
 
     # And finally start webserver
     web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT)
-
-    
 
 
 if __name__ == "__main__":

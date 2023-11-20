@@ -13,4 +13,3 @@ TEST_CHAT_ID = getenv("TEST_CHAT_ID")
 DORM_CHAT_ID = getenv("DORM_CHAT_ID")
 ADMIN_ID = getenv("ADMIN_ID")
 ADMIN_IDS = list(map(int, ADMIN_ID.split(", ")))
-

@@ -1,8 +1,8 @@
-'''
+"""
 /msg_echo and /msg_echo_pin are admin commands
 You can send or send and pin any message to the chat
 on behalf of the bot
-'''
+"""
 
 from aiogram import F, Router, Bot
 from aiogram.types import Message, ReplyKeyboardRemove
@@ -16,14 +16,13 @@ from core.utils.config import DORM_CHAT_ID
 msg_echo_router = Router()
 msg_echo_pin_router = Router()
 
+
 @msg_echo_router.message(isAdmin(), Command("msg_echo"))
 async def get_msg(message: Message, state: FSMContext) -> None:
     await message.answer(
-        "Send a message or type /cancel to cancel.",
-        reply_markup=ReplyKeyboardRemove()
+        "Send a message or type /cancel to cancel.", reply_markup=ReplyKeyboardRemove()
     )
     await state.set_state(StatesMsgEcho.GET_MSG)
-
 
 
 @msg_echo_router.message(Command("cancel"), StatesMsgEcho.GET_MSG)
@@ -37,9 +36,8 @@ async def cancel_handler(message: Message, state: FSMContext) -> None:
         return
 
     await state.clear()
-    await message.answer(
-        "/msg_echo is cancelled."
-    )
+    await message.answer("/msg_echo is cancelled.")
+
 
 @msg_echo_router.message(StatesMsgEcho.GET_MSG)
 async def process_chars(message: Message, state: FSMContext, bot: Bot) -> None:
@@ -51,13 +49,14 @@ async def process_chars(message: Message, state: FSMContext, bot: Bot) -> None:
         pass
     await state.clear()
 
+
 @msg_echo_pin_router.message(isAdmin(), Command("msg_echo_pin"))
 async def get_msg(message: Message, state: FSMContext) -> None:
     await message.answer(
-        "Send a message or type /cancel to cancel.",
-        reply_markup=ReplyKeyboardRemove()
+        "Send a message or type /cancel to cancel.", reply_markup=ReplyKeyboardRemove()
     )
     await state.set_state(StatesMsgEcho.GET_MSG_PIN)
+
 
 @msg_echo_pin_router.message(Command("cancel"), StatesMsgEcho.GET_MSG_PIN)
 @msg_echo_pin_router.message(F.text.casefold() == "cancel", StatesMsgEcho.GET_MSG_PIN)
@@ -70,9 +69,8 @@ async def cancel_handler(message: Message, state: FSMContext) -> None:
         return
 
     await state.clear()
-    await message.answer(
-        "/msg_echo_pin is cancelled."
-    )
+    await message.answer("/msg_echo_pin is cancelled.")
+
 
 @msg_echo_pin_router.message(StatesMsgEcho.GET_MSG_PIN)
 async def process_chars(message: Message, state: FSMContext, bot: Bot) -> None:
