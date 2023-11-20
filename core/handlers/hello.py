@@ -1,3 +1,8 @@
+"""
+    answers "ні", "Ні", "нІ", "НІ"
+"""
+
+
 from aiogram import Router, F
 from aiogram.types import ReplyKeyboardRemove, Message
 
