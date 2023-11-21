@@ -18,6 +18,7 @@ from core.handlers.donate import donate_router
 from core.handlers.msg_echo import msg_echo_router, msg_echo_pin_router
 from core.handlers.new_member import new_member_router
 from core.handlers.hello import router as hello_router
+from core.handlers.weather import router as weather_router
 from core.utils.commands import set_commands
 from core.utils.config import (
     BOT_TOKEN,
@@ -66,6 +67,7 @@ def main() -> None:
         update_vahta_router,
         draw_vahta_router,
         hello_router,
+        weather_router,
     )
 
     # Register startup hook to initialize webhook

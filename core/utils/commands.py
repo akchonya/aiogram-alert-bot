@@ -14,6 +14,8 @@ user_commands = [
     BotCommand(command="bunt", description="бунт"),
     BotCommand(command="rusoriz", description="русоріз"),
     BotCommand(command="donate", description="донати на підтримку бота"),
+    BotCommand(command="weather_now", description="погода зараз"),
+    BotCommand(command="weather_today", description="прогноз на сьогодні"),
 ]
 
 moderator_commands = user_commands + [
