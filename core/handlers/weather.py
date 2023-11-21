@@ -1,7 +1,7 @@
 import python_weather
 from python_weather.enums import Locale
 
-from aiogram import Router, html
+from aiogram import Router, html, F
 from aiogram.filters import Command
 from aiogram.types import Message
 from datetime import datetime
@@ -44,3 +44,8 @@ async def weather_today_handler(message: Message):
             msg += f" {html.bold('{:02d}:{:02d}'.format(hourly.time.hour, hourly.time.minute))}: {hourly.temperature}°C, {hourly.description}\n"
 
     await message.answer(msg)
+
+
+@router.message(F.text.contains("погод"))
+async def weather_text_handler(message: Message):
+    await weather_now_handler(message)
