@@ -46,6 +46,6 @@ async def weather_today_handler(message: Message):
     await message.answer(msg)
 
 
-@router.message(F.text.contains("погод"))
+@router.message(F.text.casefold().contains("погод"))
 async def weather_text_handler(message: Message):
     await weather_now_handler(message)
