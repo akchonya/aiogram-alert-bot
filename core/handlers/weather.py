@@ -42,7 +42,7 @@ async def weather_today_handler(message: Message):
         if datetime.now().time() < hourly.time:
             msg += "🔸🔹"[i % 2]
             msg += f" {html.bold('{:02d}:{:02d}'.format(hourly.time.hour, hourly.time.minute))}: {hourly.temperature}°C, {hourly.description}\n"
-    if msg == "прогноз на сьогодні:\n":
+    if msg == f"{html.bold('прогноз на сьогодні:')}\n":
         msg += "нема вже шо прогрозувати, ви час бачили? до завтра!!"
 
     await message.answer(msg)
