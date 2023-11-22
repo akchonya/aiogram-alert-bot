@@ -19,6 +19,8 @@ class AlinaMiddleware(BaseMiddleware):
         if not self.is_alina(event):
             return await handler(event, data)
         await event.answer(
-            "❕ Аліна, навчи чомусь закарпацькому\n👊 і чекаємо на канал"
+            "❕ Аліна нарешті створила <a href='https://t.me/zakkarnb'>канал</a>, підписуйтеся",
+            parse_mode="HTML",
+            disable_web_page_preview=True,
         )
         return await handler(event, data)
