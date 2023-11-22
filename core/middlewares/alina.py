@@ -18,5 +18,5 @@ class AlinaMiddleware(BaseMiddleware):
     ) -> Any:
         if not self.is_alina(event):
             return await handler(event, data)
-        await event.answer("❕ Аліна, навчи чомусь закарпацькому!!")
+        await event.answer("❕ Аліна, навчи чомусь закарпацькому")
         return await handler(event, data)
