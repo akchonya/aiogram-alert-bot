@@ -42,7 +42,8 @@ async def weather_today_handler(message: Message):
         logging.error(f"Error fetching weather: {e}")
         await message.answer("⚠️ сервер з погодою не відповідає, спробуйте пізніше")
 
-    initial_msg = msg = f"{html.bold('прогноз на сьогодні:')}\n"
+    initial_msg = f"{html.bold('прогноз на сьогодні:')}\n"
+    msg = f"{html.bold('прогноз на сьогодні:')}\n"
     forecast = [i for i in weather.forecasts][0]
 
     for i, hourly in enumerate(forecast.hourly):
