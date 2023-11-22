@@ -1,10 +1,12 @@
-import python_weather
-from python_weather.enums import Locale
+import logging
+from datetime import datetime
 
-from aiogram import Router, html, F
+import python_weather
+from aiogram import F, Router, html
 from aiogram.filters import Command
 from aiogram.types import Message
-from datetime import datetime
+from aiohttp.client_exceptions import ClientConnectorError
+from python_weather.enums import Locale
 
 
 async def getweather():
@@ -34,7 +36,12 @@ async def weather_now_handler(message: Message):
 
 @router.message(Command("weather_today"))
 async def weather_today_handler(message: Message):
-    weather = await getweather()
+    try:
+        weather = await getweather()
+    except ClientConnectorError as e:
+        logging.error(f"Error fetching weather: {e}")
+        await message.answer("⚠️ сервер з погодою не відповідає, спробуйте пізніше")
+
     initial_msg = msg = f"{html.bold('прогноз на сьогодні:')}\n"
     forecast = [i for i in weather.forecasts][0]
 
