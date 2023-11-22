@@ -35,16 +35,17 @@ async def weather_now_handler(message: Message):
 @router.message(Command("weather_today"))
 async def weather_today_handler(message: Message):
     weather = await getweather()
-    msg = f"{html.bold('прогноз на сьогодні:')}\n"
+    initial_msg = msg = f"{html.bold('прогноз на сьогодні:')}\n"
     forecast = [i for i in weather.forecasts][0]
 
     for i, hourly in enumerate(forecast.hourly):
         if datetime.now().time() < hourly.time:
             msg += "🔸🔹"[i % 2]
             msg += f" {html.bold('{:02d}:{:02d}'.format(hourly.time.hour, hourly.time.minute))}: {hourly.temperature}°C, {hourly.description}\n"
-        await message.answer(msg)
 
-    msg += "🙄 нема вже шо прогрозувати, ви час бачили? до завтра!!"
+    if msg != initial_msg:
+        msg += "🙄 нема вже шо прогрозувати, ви час бачили? до завтра!!"
+
     await message.answer(msg)
 
 
