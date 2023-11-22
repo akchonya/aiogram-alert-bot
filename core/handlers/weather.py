@@ -26,7 +26,7 @@ async def weather_now_handler(message: Message):
     msg = (
         f"{html.bold('погода зараз')}:\n"
         f"🌡 {weather.current.temperature}°C (відчувається як {weather.current.feels_like}°C)\n"
-        f"📝 {weather.current.description}\n\n"
+        f"📝 {weather.current.description.lower()}\n\n"
     )
 
     await message.answer(msg)
@@ -41,7 +41,7 @@ async def weather_today_handler(message: Message):
     for i, hourly in enumerate(forecast.hourly):
         if datetime.now().time() < hourly.time:
             msg += "🔸🔹"[i % 2]
-            msg += f" {html.bold('{:02d}:{:02d}'.format(hourly.time.hour, hourly.time.minute))}: {hourly.temperature}°C, {hourly.description}\n"
+            msg += f" {html.bold('{:02d}:{:02d}'.format(hourly.time.hour, hourly.time.minute))}: {hourly.temperature}°C, {hourly.description.lower()}\n"
 
     if msg == initial_msg:
         msg += "🙄 нема вже шо прогрозувати, ви час бачили? до завтра!!"
