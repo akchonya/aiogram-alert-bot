@@ -25,7 +25,7 @@ async def weather_now_handler(message: Message):
 
     msg = (
         f"{html.bold('погода зараз')}:\n"
-        f"🌡 {weather.current.temperature}°C\n"
+        f"🌡 {weather.current.temperature}°C (відчувається як {weather.current.feels_like}°C)\n"
         f"📝 {weather.current.description}\n\n"
     )
 
