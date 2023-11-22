@@ -1,5 +1,5 @@
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import python_weather
 from aiogram import F, Router, html
@@ -47,7 +47,7 @@ async def weather_today_handler(message: Message):
     forecast = [i for i in weather.forecasts][0]
 
     for i, hourly in enumerate(forecast.hourly):
-        if datetime.now().time() < hourly.time:
+        if (datetime.now() + timedelta(hours=1)).time() < hourly.time:
             msg += "🔸🔹"[i % 2]
             msg += f" {html.bold('{:02d}:{:02d}'.format(hourly.time.hour, hourly.time.minute))}: {hourly.temperature}°C, {hourly.description.lower()}\n"
 
