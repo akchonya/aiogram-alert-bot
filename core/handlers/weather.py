@@ -49,7 +49,8 @@ async def weather_today_handler(message: Message):
     for i, hourly in enumerate(forecast.hourly):
         if (datetime.now() + timedelta(hours=1)).time() < hourly.time:
             msg += "🔸🔹"[i % 2]
-            msg += f" {html.bold('{:02d}:{:02d}'.format(hourly.time.hour, hourly.time.minute))}: {hourly.temperature}°C, {hourly.description.lower()}\n"
+            emoji = html.code("\U0001faac")
+            msg += f" {html.bold('{:02d}:{:02d}'.format(hourly.time.hour, hourly.time.minute))}: {hourly.temperature}°C ({emoji} {hourly.feels_like}°C), {hourly.description.lower()}\n"
 
     print(initial_msg + "\n" + msg)
     if msg == initial_msg:
