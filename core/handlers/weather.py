@@ -36,6 +36,7 @@ async def weather_now_handler(message: Message):
 
 @router.message(Command("weather_today"))
 async def weather_today_handler(message: Message):
+    # Catch the error
     try:
         weather = await getweather()
     except ClientConnectorError as e:
