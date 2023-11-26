@@ -25,11 +25,9 @@ from core.utils.config import (
     WEB_SERVER_HOST,
     BASE_WEBHOOK_URL,
     WEBHOOK_SECRET,
+    WEB_SERVER_PORT,
 )
 
-
-# Port for incoming request from reverse proxy.
-WEB_SERVER_PORT = 8443
 
 # Path to webhook route, on which Telegram will send requests
 WEBHOOK_PATH = f"/bot/{BOT_TOKEN}"
