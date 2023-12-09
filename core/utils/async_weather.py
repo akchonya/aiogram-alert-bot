@@ -87,7 +87,6 @@ async def weather_forecast(
 
     # For each forecast
     for i, forecast in enumerate(today_list):
-        print(forecast, "\n")
         # Get the time from the 'dt_text' property
         time_str = forecast["dt_txt"][11:16]
 
@@ -113,7 +112,6 @@ async def weather_forecast(
 
             # Create a forecast entry
             txt = f"{html.bold(time_str)}: {temp}°C ({FEELS_LIKE_EMOJI} {feels_like}°C), {description}\n"
-            print(txt, "\n")
             forecast_string += txt
 
     return forecast_string
