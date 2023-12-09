@@ -1,4 +1,4 @@
 .env
 venv/
 __pycache__/
-pillow_bot/vahta.png  
+*.png  
