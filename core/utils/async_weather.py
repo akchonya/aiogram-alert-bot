@@ -1,7 +1,7 @@
 import datetime
 import logging
 import time
-
+import pytz
 import aiohttp
 from aiogram import html
 
@@ -87,14 +87,18 @@ async def weather_forecast(
 
     # For each forecast
     for i, forecast in enumerate(today_list):
+        print(forecast, "\n")
         # Get the time from the 'dt_text' property
         time_str = forecast["dt_txt"][11:16]
 
         # Convert it to time object
         dt = datetime.datetime.strptime(time_str, "%H:%M").time()
 
+        kyiv_timezone = pytz.timezone("Europe/Kiev")
+        localized_time = datetime.datetime.now(kyiv_timezone).time()
+
         # If the time is greater than current -> add to the forecast
-        if dt > datetime.datetime.now().time():
+        if dt > localized_time:
             # Add an icon
             forecast_string += "🔸🔹"[i % 2]
 
@@ -108,6 +112,8 @@ async def weather_forecast(
             feels_like = round(forecast["main"]["feels_like"])
 
             # Create a forecast entry
-            forecast_string += f"{html.bold(time_str)}: {temp}°C ({FEELS_LIKE_EMOJI} {feels_like}°C), {description}\n"
+            txt = f"{html.bold(time_str)}: {temp}°C ({FEELS_LIKE_EMOJI} {feels_like}°C), {description}\n"
+            print(txt, "\n")
+            forecast_string += txt
 
     return forecast_string
