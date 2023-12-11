@@ -64,7 +64,7 @@ async def alerts_handler(message: types.Message, bot: Bot):
                 )
             # Else - unpin message if there is one
             else:
-                if msg != None:
+                if msg is not None:
                     await bot.send_message(DORM_CHAT_ID, "✅ ВІДБІЙ ТРИВОГИ")
                     await bot.unpin_chat_message(DORM_CHAT_ID, msg.message_id)
 
