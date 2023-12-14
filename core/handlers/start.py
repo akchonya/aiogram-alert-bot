@@ -34,7 +34,7 @@ async def help_handler(message: types.Message):
         + "• /faq присилає корисну статтю\n"
         + "• /vahta - графік вахтерів\n"
         + "• /bunt i /rusoriz кидають відповідні стікери\n"
-        + "• /weather_now i /weather_today показують погоду зараз і на сьогодні відповідно"
+        + "• /weather_now i /weather_today показують погоду зараз і на сьогодні відповідно\n"
         + "• за допомогою /donate можеш підтримати розробницю бота\n\n"
         + f"якщо маєш питання чи пропозиції - <a href='tg://user?id={ADMIN_IDS[0]}'>звертайся</a>",
         parse_mode="HTML",
