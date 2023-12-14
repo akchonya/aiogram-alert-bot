@@ -59,7 +59,7 @@ async def weather_now(
 
     weather_text = (
         f"{html.bold('погода зараз:')}\n"
-        f"🌡 {round(response['main']['temp'])}°C ({FEELS_LIKE_EMOJI} {round(response['main']['feels_like'])}°C)"
+        f"🌡 {round(response['main']['temp'])}°C ({FEELS_LIKE_EMOJI} {round(response['main']['feels_like'])}°C), {response['weather'][0]['description']}"
     )
 
     return weather_text
