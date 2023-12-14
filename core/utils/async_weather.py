@@ -114,4 +114,7 @@ async def weather_forecast(
             txt = f"{html.bold(time_str)}: {temp}°C ({FEELS_LIKE_EMOJI} {feels_like}°C), {description}\n"
             forecast_string += txt
 
+        if forecast_string == html.bold("прогноз на сьогодні:\n"):
+            forecast_string += "🙄 нема вже шо прогрозувати, ви час бачили? до завтра!!"
+
     return forecast_string
