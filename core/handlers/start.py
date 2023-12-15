@@ -11,11 +11,10 @@ from aiogram.types import ReplyKeyboardRemove
 from ..utils.config import ADMIN_IDS
 
 
-start_router = Router()
-help_router = Router()
+router = Router()
 
 
-@start_router.message(CommandStart())
+@router.message(CommandStart())
 async def start_handler(message: types.Message):
     await message.answer(
         f"<b>привіт, {message.from_user.first_name}!</b>\n"
@@ -26,7 +25,7 @@ async def start_handler(message: types.Message):
     )
 
 
-@help_router.message(Command("help"))
+@router.message(Command("help"))
 async def help_handler(message: types.Message):
     await message.answer(
         f"<b>привіт, {message.from_user.first_name}!</b>\n\n"

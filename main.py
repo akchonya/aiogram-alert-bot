@@ -6,7 +6,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 from core.middlewares.alina import AlinaMiddleware
-from core.handlers.start import start_router, help_router
+from core.handlers.start import router as start_router
 from core.handlers.alerts import alerts_router
 from core.handlers.faq import faq_router
 from core.handlers.vahta import vahta_router
@@ -61,7 +61,6 @@ def main() -> None:
         msg_echo_pin_router,
         donate_router,
         new_member_router,
-        help_router,
         update_vahta_router,
         draw_vahta_router,
         hello_router,
