@@ -13,7 +13,7 @@ from core.handlers.vahta import vahta_router
 from core.handlers.draw_vahta import draw_vahta_router
 from core.handlers.update_vahta import update_vahta_router
 from core.handlers.admin_panel import admin_panel_router
-from core.handlers.cmd_stickers import bunt_sticker_router, rusoriz_sticker_router
+from core.handlers.cmd_stickers import router as stickers_router
 from core.handlers.donate import donate_router
 from core.handlers.msg_echo import msg_echo_router, msg_echo_pin_router
 from core.handlers.new_member import new_member_router
@@ -54,8 +54,7 @@ def main() -> None:
         alerts_router,
         faq_router,
         vahta_router,
-        bunt_sticker_router,
-        rusoriz_sticker_router,
+        stickers_router,
         admin_panel_router,
         msg_echo_router,
         msg_echo_pin_router,
