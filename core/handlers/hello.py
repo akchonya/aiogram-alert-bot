@@ -5,6 +5,7 @@
 
 from aiogram import Router, F
 from aiogram.types import ReplyKeyboardRemove, Message
+from utils.config import INTRO_ID
 
 router = Router()
 
@@ -27,3 +28,12 @@ async def hi_cap_handler(message: Message):
 @router.message(F.text == "нІ")
 async def hi_crazy_handler(message: Message):
     await message.reply("нEllO", reply_markup=ReplyKeyboardRemove())
+
+
+intro_hi = ["Нї", "нї", "нЇ", "НЇ"]
+intro_hello = ["Heїїo", "неїїо", "неЇЇо", "НЕЇЇО"]
+
+
+@router.message((F.text.in_(intro_hi)) & (F.from_user.id == INTRO_ID))
+async def hi_intro_handler(message: Message):
+    await message.reply(intro_hello[intro_hi.index(message.text)])

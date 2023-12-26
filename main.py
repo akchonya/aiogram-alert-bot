@@ -46,7 +46,7 @@ async def on_startup(bot: Bot) -> None:
 
 def main() -> None:
     # Dispatcher is a root router
-    dp = Dispatcher()
+    dp = Dispatcher(alert_status="no_alert")
     dp.message.middleware(AlinaMiddleware())
     # ... and all other routers should be attached to Dispatcher
     dp.include_routers(
