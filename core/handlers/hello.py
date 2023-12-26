@@ -5,7 +5,7 @@
 
 from aiogram import Router, F
 from aiogram.types import ReplyKeyboardRemove, Message
-from utils.config import INTRO_ID
+from core.utils.config import INTRO_ID
 
 router = Router()
 
