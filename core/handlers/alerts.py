@@ -62,6 +62,10 @@ async def alerts_handler(message: types.Message, bot: Bot):
                     + "<tg-spoiler>або під ковдру на свій страх і ризик</tg-spoiler>",
                     parse_mode="HTML",
                 )
+                await bot.send_message(
+                    '❗️ попередження\n\nхто скине фото/відео/гіфку/etc (своє/друга/з_помойного_каналу/etc) прильоту/прольоту/ппо/"підозрілих"_приколів/etc під час тривог, той отримає <b>перманентний бан<b> в чатіку',
+                    parse_mode="HTML",
+                )
             # Else - unpin message if there is one
             else:
                 if msg is not None:
