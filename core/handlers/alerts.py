@@ -63,6 +63,7 @@ async def alerts_handler(message: types.Message, bot: Bot):
                     parse_mode="HTML",
                 )
                 await bot.send_message(
+                    DORM_CHAT_ID,
                     '❗️ попередження\n\nхто скине фото/відео/гіфку/etc (своє/друга/з_помойного_каналу/etc) прильоту/прольоту/ппо/"підозрілих"_приколів/etc під час тривог, той отримає <b>перманентний бан<b> в чатіку',
                     parse_mode="HTML",
                 )
