@@ -22,3 +22,9 @@ async def rusorizt_sticker(message: types.Message):
     await message.answer_sticker(
         sticker="CAACAgIAAxkBAAEmExNlCHyRvioQXW0ipPfqt9SK1nxGfwACUDcAAggFQEhQ1W5cnK9FlzAE"
     )
+
+
+@router.message(Command("concert"))
+async def concert_handler(message: types.Message):
+    voice = types.FSInputFile("concert.ogg")
+    await message.reply_voice(voice)
