@@ -5,7 +5,7 @@ Commands to send stickers to the chat
 
 from aiogram import types, Router
 from aiogram.filters import Command
-
+from random import randint
 
 router = Router()
 
@@ -19,9 +19,11 @@ async def bunt_sticker(message: types.Message):
 
 @router.message(Command("rusoriz"))
 async def rusorizt_sticker(message: types.Message):
-    await message.answer_sticker(
-        sticker="CAACAgIAAxkBAAEmExNlCHyRvioQXW0ipPfqt9SK1nxGfwACUDcAAggFQEhQ1W5cnK9FlzAE"
+    stickers = (
+        "CAACAgIAAxkBAAEouIZlmyH78U-XzgbGxcVSZY8rykCLjAAC2xEAAheC6EjvAoFgb4_29jQE",
+        "CAACAgIAAxkBAAEmExNlCHyRvioQXW0ipPfqt9SK1nxGfwACUDcAAggFQEhQ1W5cnK9FlzAE",
     )
+    await message.answer_sticker(stickers[randint(0, 1)])
 
 
 @router.message(Command("concert"))
