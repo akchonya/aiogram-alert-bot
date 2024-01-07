@@ -29,4 +29,4 @@ async def rusorizt_sticker(message: types.Message):
 @router.message(Command("concert"))
 async def concert_handler(message: types.Message):
     voice = types.FSInputFile("concert.ogg")
-    await message.reply_voice(voice)
+    await message.reply_voice(voice=voice, caption="💃🕺💃🕺💃🕺")
