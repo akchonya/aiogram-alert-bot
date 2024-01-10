@@ -2,10 +2,11 @@
 Commands to send stickers to the chat
 """
 
-
-from aiogram import types, Router
-from aiogram.filters import Command
+import os
 from random import randint
+
+from aiogram import Router, types
+from aiogram.filters import Command
 
 router = Router()
 
@@ -28,5 +29,14 @@ async def rusorizt_sticker(message: types.Message):
 
 @router.message(Command("concert"))
 async def concert_handler(message: types.Message):
-    voice = types.FSInputFile("concert.ogg")
+    dir_path = "concert"
+    number_of_files = len(
+        [
+            entry
+            for entry in os.listdir(dir_path)
+            if os.path.isfile(os.path.join(dir_path, entry))
+        ]
+    )
+
+    voice = types.FSInputFile(f"concert/audio{randint(0, number_of_files - 1)}.ogg")
     await message.answer_voice(voice=voice, caption="💃🕺💃🕺💃🕺💃🕺💃🕺")
