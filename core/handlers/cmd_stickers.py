@@ -38,5 +38,5 @@ async def concert_handler(message: types.Message):
         ]
     )
 
-    voice = types.FSInputFile(f"concert/audio{randint(0, number_of_files - 1)}.ogg")
+    voice = types.FSInputFile(f"concert/audio{randint(1, number_of_files)}.ogg")
     await message.answer_voice(voice=voice, caption="💃🕺💃🕺💃🕺💃🕺💃🕺")
