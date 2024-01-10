@@ -37,7 +37,6 @@ async def concert_handler(message: types.Message):
             if os.path.isfile(os.path.join(dir_path, entry))
         ]
     )
-    print(number_of_files)
 
     voice = types.FSInputFile(f"concert/audio{randint(0, number_of_files - 1)}.ogg")
     await message.answer_voice(voice=voice, caption="💃🕺💃🕺💃🕺💃🕺💃🕺")
