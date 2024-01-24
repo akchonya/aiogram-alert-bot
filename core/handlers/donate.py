@@ -15,8 +15,8 @@ donate_router = Router()
 async def donate_handler(message: types.Message):
     await message.answer(
         "<b>Донати приймаються на карти:</b> "
-        + "\nприват: 5168752084032468 \nмоно: 4441111136306531\n\n",
-        +"шукайте себе на дошці пошани потім!",
+        + "\nприват: 5168752084032468 \nмоно: 4441111136306531\n\n"
+        + "шукайте себе на дошці пошани потім!",
         parse_mode="HTML",
         reply_markup=ReplyKeyboardRemove(),
     )
