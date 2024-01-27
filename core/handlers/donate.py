@@ -19,4 +19,5 @@ async def donate_handler(message: types.Message):
         + "шукайте себе на <a href='https://telegra.ph/doshka-poshani-LNU-Dorm-3-10-11'>дошці пошани</a> потім!",
         parse_mode="HTML",
         reply_markup=ReplyKeyboardRemove(),
+        disable_web_page_preview=True,
     )
