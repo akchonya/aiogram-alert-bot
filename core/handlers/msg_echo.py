@@ -8,7 +8,7 @@ from aiogram import F, Router, Bot
 from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
-from core.utils.statesmsgecho import StatesMsgEcho
+from core.utils.states import StatesMsgEcho
 from core.filters.basic import isAdmin
 from core.utils.config import DORM_CHAT_ID
 
@@ -51,7 +51,7 @@ async def process_chars(message: Message, state: FSMContext, bot: Bot) -> None:
 
 
 @msg_echo_pin_router.message(isAdmin(), Command("msg_echo_pin"))
-async def get_msg(message: Message, state: FSMContext) -> None:
+async def get_msg_pin(message: Message, state: FSMContext) -> None:
     await message.answer(
         "Send a message or type /cancel to cancel.", reply_markup=ReplyKeyboardRemove()
     )
@@ -60,7 +60,7 @@ async def get_msg(message: Message, state: FSMContext) -> None:
 
 @msg_echo_pin_router.message(Command("cancel"), StatesMsgEcho.GET_MSG_PIN)
 @msg_echo_pin_router.message(F.text.casefold() == "cancel", StatesMsgEcho.GET_MSG_PIN)
-async def cancel_handler(message: Message, state: FSMContext) -> None:
+async def cancel_handler_pin(message: Message, state: FSMContext) -> None:
     """
     Allow user to cancel any action
     """
@@ -73,12 +73,12 @@ async def cancel_handler(message: Message, state: FSMContext) -> None:
 
 
 @msg_echo_pin_router.message(StatesMsgEcho.GET_MSG_PIN)
-async def process_chars(message: Message, state: FSMContext, bot: Bot) -> None:
+async def process_chars_pin(message: Message, state: FSMContext, bot: Bot) -> None:
     try:
         # Send a copy of the received message
         msg = await message.send_copy(chat_id=DORM_CHAT_ID)
         await bot.pin_chat_message(DORM_CHAT_ID, msg.message_id, True)
         await message.answer("Message is sent and pinned.")
     except TypeError:
-        pass
+        await message.answer("Something went wrong. Try again.")
     await state.clear()

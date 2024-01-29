@@ -3,21 +3,17 @@ from pillow_bot.helpers import pillow_draw
 from aiogram import F, Router, Bot
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
-from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import Message, ReplyKeyboardRemove
 from core.keyboards.draw_vahta_kb import vahta_chars_kb, vahta_rows_kb, vahta_columns_kb
 from core.filters.basic import isAdmin
 from core.utils.config import DORM_CHAT_ID
+from core.utils.states import StatesDrawVahta
 
 
 draw_vahta_router = Router()
 
 
 # Create states
-class StatesDrawVahta(StatesGroup):
-    GET_CHAR = State()
-    GET_ROW = State()
-    GET_COLUMN = State()
 
 
 @draw_vahta_router.message(isAdmin(), Command("draw_vahta"))

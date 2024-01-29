@@ -7,7 +7,7 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import ReplyKeyboardRemove
 from core.filters.basic import isAdmin
-from core.utils.statesvahta import StatesVahta
+from core.utils.states import StatesVahta
 
 
 update_vahta_router = Router()
