@@ -88,7 +88,7 @@ columns = ("1", "2", "3", "4", "5", "6", "7")
 
 
 @draw_vahta_router.message(StatesDrawVahta.GET_COLUMN, F.text.in_(columns))
-async def process_row(message: Message, state: FSMContext, bot: Bot) -> None:
+async def process_row_pin(message: Message, state: FSMContext, bot: Bot) -> None:
     await message.answer(
         f"OK, you picked column {message.text}. Drawing..",
         reply_markup=ReplyKeyboardRemove(),
