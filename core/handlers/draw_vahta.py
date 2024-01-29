@@ -13,9 +13,6 @@ from core.utils.states import StatesDrawVahta
 draw_vahta_router = Router()
 
 
-# Create states
-
-
 @draw_vahta_router.message(isAdmin(), Command("draw_vahta"))
 async def command_start(message: Message, state: FSMContext) -> None:
     await state.set_state(StatesDrawVahta.GET_CHAR)
