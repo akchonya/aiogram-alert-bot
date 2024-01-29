@@ -1,8 +1,6 @@
 from aiogram import Router
-from aiogram.filters import Command, CommandStart
+from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardRemove, Message
-
-from ..utils.config import ADMIN_IDS
 
 
 router = Router()
