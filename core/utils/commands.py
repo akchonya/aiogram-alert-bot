@@ -17,6 +17,7 @@ user_commands = [
     BotCommand(command="weather_now", description="погода зараз"),
     BotCommand(command="weather_today", description="прогноз на сьогодні"),
     BotCommand(command="concert", description="без коментарів"),
+    BotCommand(command="svyato", description="свята сьогодні"),
 ]
 
 moderator_commands = user_commands + [
