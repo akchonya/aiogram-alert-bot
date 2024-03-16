@@ -6,6 +6,7 @@
 from aiogram import Router, F
 from aiogram.types import ReplyKeyboardRemove, Message
 from core.utils.config import INTRO_ID
+from core.utils.soup import parse_page
 
 router = Router()
 
@@ -37,3 +38,11 @@ intro_hello = ["Heїїo", "неїїо", "неЇЇо", "НЕЇЇО"]
 @router.message((F.text.in_(intro_hi)) & (F.from_user.id == INTRO_ID))
 async def hi_intro_handler(message: Message):
     await message.reply(intro_hello[intro_hi.index(message.text)])
+
+
+@router.message(Command("svyato"))
+async def svyaro_handler(message: types.Message):
+    svyato = await parse_page("https://daytoday.ua/sogodni/")
+    await message.answer(
+        f"🍾 <b>свята сьогодні:</b>\n{svyato}", reply_markup=ReplyKeyboardRemove()
+    )

@@ -41,7 +41,11 @@ async def on_startup(bot: Bot) -> None:
     await bot.set_webhook(
         f"{BASE_WEBHOOK_URL}{WEBHOOK_PATH}",
         secret_token=WEBHOOK_SECRET,
-        allowed_updates=["message", "chat_member"],  # allow updates needed
+        allowed_updates=[
+            "message",
+            "chat_member",
+            "callback_query",
+        ],  # allow updates needed
     )
 
 
