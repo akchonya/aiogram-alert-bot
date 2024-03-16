@@ -3,8 +3,10 @@
 """
 
 
-from aiogram import Router, F
-from aiogram.types import ReplyKeyboardRemove, Message
+from aiogram import F, Router
+from aiogram.filters import Command
+from aiogram.types import Message, ReplyKeyboardRemove
+
 from core.utils.config import INTRO_ID
 from core.utils.soup import parse_page
 
@@ -41,7 +43,7 @@ async def hi_intro_handler(message: Message):
 
 
 @router.message(Command("svyato"))
-async def svyaro_handler(message: types.Message):
+async def svyaro_handler(message: Message):
     svyato = await parse_page("https://daytoday.ua/sogodni/")
     await message.answer(
         f"🍾 <b>свята сьогодні:</b>\n{svyato}", reply_markup=ReplyKeyboardRemove()
