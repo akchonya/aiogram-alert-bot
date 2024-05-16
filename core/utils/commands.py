@@ -18,10 +18,12 @@ user_commands = [
     BotCommand(command="weather_today", description="прогноз на сьогодні"),
     BotCommand(command="concert", description="без коментарів"),
     BotCommand(command="svyato", description="свята сьогодні"),
+    BotCommand(command="svitlo", description="показати зону за графіком"),
 ]
 
 moderator_commands = user_commands + [
-    BotCommand(command="draw_vahta", description="додати вахтера на графік")
+    BotCommand(command="draw_vahta", description="додати вахтера на графік"),
+    BotCommand(command="update_vahta", description="оновити фон вахти"),
 ]
 
 admin_commands = user_commands + [

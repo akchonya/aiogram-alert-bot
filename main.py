@@ -8,7 +8,7 @@ from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_applicati
 from core.middlewares.alina import AlinaMiddleware
 from core.handlers.start import router as start_router
 from core.handlers.alerts import alerts_router
-from core.handlers.faq import faq_router
+from core.handlers.faq import router as faq_router
 from core.handlers.vahta import vahta_router
 from core.handlers.draw_vahta import draw_vahta_router
 from core.handlers.update_vahta import update_vahta_router
