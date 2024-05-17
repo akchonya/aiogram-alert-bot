@@ -183,7 +183,23 @@ async def svitlo_handler(message: Message):
 
     weekday = now.weekday()
 
+    text = f"{emojis[schedule[weekday][time_index]]} {html.bold(f'{time}')}\n"
+
+    text += "➖➖➖➖➖➖➖➖➖\n"
+
+    for i_time in time_periods:
+        print(i_time, "\n", time_index)
+        empty = True
+        i_time_index = time_periods.index(i_time)
+        if i_time_index > time_index:
+            text += f"{emojis[schedule[weekday][i_time_index]]} {f'{html.bold(time_periods[i_time_index])}'}\n"
+            empty = False
+
+    if not empty:
+        text += "➖➖➖➖➖➖➖➖➖\n"
+
+    text += f"{html.link('ℹ актуальна інформація', 'https://telegra.ph/Dormitory-3-09-10#електрохарчування')}"
     await message.answer(
-        f"{emojis[schedule[weekday][time_index]]} {html.bold(f'{time}')}\n{html.link('актуальна інформація', 'https://telegra.ph/Dormitory-3-09-10#електрохарчування')}",
+        text,
         disable_web_page_preview=True,
     )
