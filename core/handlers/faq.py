@@ -8,7 +8,6 @@ from aiogram import Router, html
 from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardRemove, Message
 
-
 time_periods = (
     "1:00-3:00",
     "3:00-5:00",
