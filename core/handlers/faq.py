@@ -139,6 +139,107 @@ schedule = {
 }
 
 
+schedule_3 = {
+    MON: (
+        GREEN,
+        GREEN,
+        GREEN,
+        GREEN,
+        WHITE,
+        RED,
+        GREEN,
+        GREEN,
+        GREEN,
+        GREEN,
+        WHITE,
+        RED,
+    ),
+    TUE: (
+        GREEN,
+        GREEN,
+        WHITE,
+        RED,
+        GREEN,
+        GREEN,
+        GREEN,
+        GREEN,
+        WHITE,
+        RED,
+        GREEN,
+        GREEN,
+    ),
+    WED: (
+        WHITE,
+        RED,
+        GREEN,
+        GREEN,
+        GREEN,
+        GREEN,
+        WHITE,
+        RED,
+        GREEN,
+        GREEN,
+        GREEN,
+        GREEN,
+    ),
+    THU: (
+        GREEN,
+        GREEN,
+        GREEN,
+        GREEN,
+        RED,
+        WHITE,
+        GREEN,
+        GREEN,
+        GREEN,
+        RED,
+        WHITE,
+    ),
+    FRI: (
+        GREEN,
+        GREEN,
+        RED,
+        WHITE,
+        GREEN,
+        GREEN,
+        GREEN,
+        GREEN,
+        RED,
+        WHITE,
+        GREEN,
+        GREEN,
+    ),
+    SAT: (
+        RED,
+        WHITE,
+        GREEN,
+        GREEN,
+        GREEN,
+        GREEN,
+        RED,
+        WHITE,
+        GREEN,
+        GREEN,
+        GREEN,
+        GREEN,
+    ),
+    SUN: (
+        GREEN,
+        GREEN,
+        GREEN,
+        GREEN,
+        RED,
+        WHITE,
+        GREEN,
+        GREEN,
+        GREEN,
+        GREEN,
+        RED,
+        WHITE,
+    ),
+}
+
+
 async def check_current_period(now, time_periods):
     now = now.time()
 
@@ -199,6 +300,32 @@ async def svitlo_handler(message: Message):
         text += "➖➖➖➖➖➖➖➖➖\n"
 
     text += f"{html.link('ℹ актуальна інформація', 'https://telegra.ph/Dormitory-3-09-10#електрохарчування')}"
+    await message.answer(
+        text,
+        disable_web_page_preview=True,
+    )
+
+
+@router.message(Command("svitlo3"))
+async def svitlo3_handler(message: Message):
+    now = datetime.now(tz=timezone("Europe/Kiev"))
+
+    time = await check_current_period(now, time_periods)
+
+    time_index = time_periods.index(time)
+
+    weekday = now.weekday()
+
+    text = f"{emojis[schedule_3[weekday][time_index]]} {html.bold(f'{time}')}\n"
+
+    text += "➖➖➖➖➖➖➖➖➖\n"
+
+    for i_time in time_periods:
+        print(i_time, "\n", time_index)
+        i_time_index = time_periods.index(i_time)
+        if i_time_index > time_index:
+            text += f"{emojis[schedule_3[weekday][i_time_index]]} {f'{html.bold(time_periods[i_time_index])}'}\n"
+
     await message.answer(
         text,
         disable_web_page_preview=True,
