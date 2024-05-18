@@ -27,7 +27,7 @@ moderator_commands = user_commands + [
 ]
 
 admin_commands = user_commands + [
-    BotCommand(command="svitlo3", description="світло в 3 групі"),
+    BotCommand(command="svitlo2", description="світло в 3 групі"),
     BotCommand(command="admin_panel", description="admin_panel"),
 ]
 
