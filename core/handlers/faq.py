@@ -139,7 +139,7 @@ schedule = {
 }
 
 
-schedule_3 = {
+schedule_2 = {
     MON: (
         GREEN,
         GREEN,
@@ -306,7 +306,7 @@ async def svitlo_handler(message: Message):
     )
 
 
-@router.message(Command("svitlo3"))
+@router.message(Command("svitlo2"))
 async def svitlo3_handler(message: Message):
     now = datetime.now(tz=timezone("Europe/Kiev"))
 
@@ -318,7 +318,7 @@ async def svitlo3_handler(message: Message):
 
     weekday = now.weekday()
 
-    text += f"{emojis[schedule_3[weekday][time_index]]} {html.bold(f'{time}')}\n"
+    text += f"{emojis[schedule_2[weekday][time_index]]} {html.bold(f'{time}')}\n"
 
     text += "➖➖➖➖➖➖➖➖➖\n"
 
@@ -326,7 +326,7 @@ async def svitlo3_handler(message: Message):
         print(i_time, "\n", time_index)
         i_time_index = time_periods.index(i_time)
         if i_time_index > time_index:
-            text += f"{emojis[schedule_3[weekday][i_time_index]]} {f'{html.bold(time_periods[i_time_index])}'}\n"
+            text += f"{emojis[schedule_2[weekday][i_time_index]]} {f'{html.bold(time_periods[i_time_index])}'}\n"
 
     await message.answer(
         text,
