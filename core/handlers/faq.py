@@ -8,6 +8,7 @@ from aiogram import Router, html
 from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardRemove, Message
 
+
 time_periods = (
     "1:00-3:00",
     "3:00-5:00",
@@ -275,8 +276,6 @@ async def faq_handler(message: Message):
 
 @router.message(Command("svitlo"))
 async def svitlo_handler(message: Message):
-    text = f"{html.bold('група 2.2')}\n➖➖➖➖➖➖➖➖➖\n"
-
     now = datetime.now(tz=timezone("Europe/Kiev"))
 
     time = await check_current_period(now, time_periods)
@@ -285,7 +284,7 @@ async def svitlo_handler(message: Message):
 
     weekday = now.weekday()
 
-    text += f"{emojis[schedule[weekday][time_index]]} {html.bold(f'{time}')}\n"
+    text = f"{emojis[schedule[weekday][time_index]]} {html.bold(f'{time}')}\n"
 
     text += "➖➖➖➖➖➖➖➖➖\n"
 
@@ -311,13 +310,15 @@ async def svitlo_handler(message: Message):
 async def svitlo3_handler(message: Message):
     now = datetime.now(tz=timezone("Europe/Kiev"))
 
+    text = f"{html.bold('група 2.2')}\n➖➖➖➖➖➖➖➖➖\n"
+
     time = await check_current_period(now, time_periods)
 
     time_index = time_periods.index(time)
 
     weekday = now.weekday()
 
-    text = f"{emojis[schedule_3[weekday][time_index]]} {html.bold(f'{time}')}\n"
+    text += f"{emojis[schedule_3[weekday][time_index]]} {html.bold(f'{time}')}\n"
 
     text += "➖➖➖➖➖➖➖➖➖\n"
 
