@@ -275,6 +275,8 @@ async def faq_handler(message: Message):
 
 @router.message(Command("svitlo"))
 async def svitlo_handler(message: Message):
+    text = f"{html.bold('група 2.2')}\n➖➖➖➖➖➖➖➖➖\n"
+
     now = datetime.now(tz=timezone("Europe/Kiev"))
 
     time = await check_current_period(now, time_periods)
@@ -283,7 +285,7 @@ async def svitlo_handler(message: Message):
 
     weekday = now.weekday()
 
-    text = f"{emojis[schedule[weekday][time_index]]} {html.bold(f'{time}')}\n"
+    text += f"{emojis[schedule[weekday][time_index]]} {html.bold(f'{time}')}\n"
 
     text += "➖➖➖➖➖➖➖➖➖\n"
 
