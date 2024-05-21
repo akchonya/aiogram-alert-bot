@@ -19,6 +19,7 @@ user_commands = [
     BotCommand(command="concert", description="без коментарів"),
     BotCommand(command="svyato", description="свята сьогодні"),
     BotCommand(command="svitlo", description="показати зону за графіком"),
+    BotCommand(command="svitlo2", description="світло в 2.2 групі"),
 ]
 
 moderator_commands = user_commands + [
@@ -27,7 +28,6 @@ moderator_commands = user_commands + [
 ]
 
 admin_commands = user_commands + [
-    BotCommand(command="svitlo2", description="світло в 3 групі"),
     BotCommand(command="admin_panel", description="admin_panel"),
 ]
 

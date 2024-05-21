@@ -3,7 +3,7 @@
 """
 
 from pytz import timezone
-from datetime import datetime
+from datetime import datetime, timedelta
 from aiogram import Router, html
 from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardRemove, Message
@@ -284,6 +284,16 @@ async def svitlo_handler(message: Message):
 
     weekday = now.weekday()
 
+    start_time = time(0, 0)  # 00:00
+    end_time = time(1, 0)  # 01:00
+
+    # Extract the current time's hour and minute
+    current_time = now.time()
+
+    # Check if the current time is within the range
+    if start_time <= current_time < end_time:
+        weekday = weekday - timedelta(days=1)
+
     text = f"{emojis[schedule[weekday][time_index]]} {html.bold(f'{time}')}\n"
 
     text += "➖➖➖➖➖➖➖➖➖\n"
@@ -307,7 +317,7 @@ async def svitlo_handler(message: Message):
 
 
 @router.message(Command("svitlo2"))
-async def svitlo3_handler(message: Message):
+async def svitlo2_handler(message: Message):
     now = datetime.now(tz=timezone("Europe/Kiev"))
 
     text = f"{html.bold('група 2.2')}\n➖➖➖➖➖➖➖➖➖\n"
@@ -317,6 +327,16 @@ async def svitlo3_handler(message: Message):
     time_index = time_periods.index(time)
 
     weekday = now.weekday()
+
+    start_time = time(0, 0)  # 00:00
+    end_time = time(1, 0)  # 01:00
+
+    # Extract the current time's hour and minute
+    current_time = now.time()
+
+    # Check if the current time is within the range
+    if start_time <= current_time < end_time:
+        weekday = weekday - timedelta(days=1)
 
     text += f"{emojis[schedule_2[weekday][time_index]]} {html.bold(f'{time}')}\n"
 
