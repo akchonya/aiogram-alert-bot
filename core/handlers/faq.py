@@ -4,6 +4,7 @@
 
 from pytz import timezone
 from datetime import datetime, timedelta
+from datetime import time as dtime
 from aiogram import Router, html
 from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardRemove, Message
@@ -284,8 +285,8 @@ async def svitlo_handler(message: Message):
 
     weekday = now.weekday()
 
-    start_time = time(0, 0)  # 00:00
-    end_time = time(1, 0)  # 01:00
+    start_time = dtime(0, 0)  # 00:00
+    end_time = dtime(1, 0)  # 01:00
 
     # Extract the current time's hour and minute
     current_time = now.time()
