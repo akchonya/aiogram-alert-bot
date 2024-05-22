@@ -265,6 +265,58 @@ async def check_current_period(now, time_periods):
     return current_period
 
 
+async def create_message(schedule, now, heading=None, footer=None, full=False):
+    time = await check_current_period(now, time_periods)
+
+    if full:
+        time_index = -1
+    else:
+        time_index = time_periods.index(time)
+
+    if full:
+        weekday = (now + timedelta(days=1)).weekday()
+    else:
+        weekday = now.weekday()
+
+    start_time = dtime(0, 0)  # 00:00
+    end_time = dtime(1, 0)  # 01:00
+
+    # Extract the current time's hour and minute
+    if full:
+        current_time = dtime(22, 0)
+    else:
+        current_time = now.time()
+
+    # Check if the current time is within the range
+    if start_time <= current_time < end_time:
+        weekday = (weekday + 1) % 7
+
+    if heading:
+        text = f"{heading}\n➖➖➖➖➖➖➖➖➖\n"
+    else:
+        text = ""
+
+    if not full:
+        text += f"{emojis[schedule[weekday][time_index]]} {html.bold(f'{time}')}\n"
+
+        text += "➖➖➖➖➖➖➖➖➖\n"
+
+    for i_time in time_periods:
+        empty = True
+        i_time_index = time_periods.index(i_time)
+        if i_time_index > time_index:
+            text += f"{emojis[schedule[weekday][i_time_index]]} {f'{html.bold(time_periods[i_time_index])}'}\n"
+            empty = False
+
+    if not empty:
+        text += "➖➖➖➖➖➖➖➖➖\n"
+
+    if footer:
+        text += f"{footer}"
+
+    return text
+
+
 router = Router()
 
 
@@ -279,77 +331,55 @@ async def faq_handler(message: Message):
 async def svitlo_handler(message: Message):
     now = datetime.now(tz=timezone("Europe/Kiev"))
 
-    time = await check_current_period(now, time_periods)
-
-    time_index = time_periods.index(time)
-
-    weekday = now.weekday()
-
-    start_time = dtime(0, 0)  # 00:00
-    end_time = dtime(1, 0)  # 01:00
-
-    # Extract the current time's hour and minute
-    current_time = now.time()
-
-    # Check if the current time is within the range
-    if start_time <= current_time < end_time:
-        weekday = weekday - timedelta(days=1)
-
-    text = f"{emojis[schedule[weekday][time_index]]} {html.bold(f'{time}')}\n"
-
-    text += "➖➖➖➖➖➖➖➖➖\n"
-
-    for i_time in time_periods:
-        print(i_time, "\n", time_index)
-        empty = True
-        i_time_index = time_periods.index(i_time)
-        if i_time_index > time_index:
-            text += f"{emojis[schedule[weekday][i_time_index]]} {f'{html.bold(time_periods[i_time_index])}'}\n"
-            empty = False
-
-    if not empty:
-        text += "➖➖➖➖➖➖➖➖➖\n"
-
-    text += f"{html.link('ℹ актуальна інформація', 'https://telegra.ph/Dormitory-3-09-10#електрохарчування')}"
-    await message.answer(
-        text,
-        disable_web_page_preview=True,
+    text = await create_message(
+        schedule=schedule,
+        now=now,
+        heading=f"{html.bold('💡 група 3.2')}",
+        footer=f"{html.link('ℹ️ актуальна інформація', 'https://t.me/svitlo_dorm3')}",
     )
+
+    await message.answer(text=text, disable_web_page_preview=True)
 
 
 @router.message(Command("svitlo2"))
 async def svitlo2_handler(message: Message):
     now = datetime.now(tz=timezone("Europe/Kiev"))
 
-    text = f"{html.bold('група 2.2')}\n➖➖➖➖➖➖➖➖➖\n"
-
-    time = await check_current_period(now, time_periods)
-
-    time_index = time_periods.index(time)
-
-    weekday = now.weekday()
-
-    start_time = dtime(0, 0)  # 00:00
-    end_time = dtime(1, 0)  # 01:00
-
-    # Extract the current time's hour and minute
-    current_time = now.time()
-
-    # Check if the current time is within the range
-    if start_time <= current_time < end_time:
-        weekday = weekday - timedelta(days=1)
-
-    text += f"{emojis[schedule_2[weekday][time_index]]} {html.bold(f'{time}')}\n"
-
-    text += "➖➖➖➖➖➖➖➖➖\n"
-
-    for i_time in time_periods:
-        print(i_time, "\n", time_index)
-        i_time_index = time_periods.index(i_time)
-        if i_time_index > time_index:
-            text += f"{emojis[schedule_2[weekday][i_time_index]]} {f'{html.bold(time_periods[i_time_index])}'}\n"
-
-    await message.answer(
-        text,
-        disable_web_page_preview=True,
+    text = await create_message(
+        schedule=schedule_2,
+        now=now,
+        heading=f"{html.bold('💧 група 2.2')}",
+        footer=f"{html.link('ℹ️ актуальна інформація', 'https://t.me/svitlo_dorm3')}",
     )
+
+    await message.answer(text=text, disable_web_page_preview=True)
+
+
+@router.message(Command("next_svitlo"))
+async def next_svitlo_handler(message: Message):
+    now = datetime.now(tz=timezone("Europe/Kiev"))
+
+    text = await create_message(
+        schedule=schedule,
+        now=now,
+        heading=f"{html.bold('💡 графік групи 3.2 на завтра')}",
+        footer=f"{html.link('ℹ️ актуальна інформація', 'https://t.me/svitlo_dorm3')}",
+        full=True,
+    )
+
+    await message.answer(text=text, disable_web_page_preview=True)
+
+
+@router.message(Command("next_svitlo2"))
+async def next_svitlo2_handler(message: Message):
+    now = datetime.now(tz=timezone("Europe/Kiev"))
+
+    text = await create_message(
+        schedule=schedule_2,
+        now=now,
+        heading=f"{html.bold('💧 графік групи 2.2 на завтра')}",
+        footer=f"{html.link('ℹ️ актуальна інформація', 'https://t.me/svitlo_dorm3')}",
+        full=True,
+    )
+
+    await message.answer(text=text, disable_web_page_preview=True)
