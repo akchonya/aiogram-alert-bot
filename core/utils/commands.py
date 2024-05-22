@@ -20,6 +20,8 @@ user_commands = [
     BotCommand(command="svyato", description="свята сьогодні"),
     BotCommand(command="svitlo", description="показати зону за графіком"),
     BotCommand(command="svitlo2", description="світло в 2.2 групі"),
+    BotCommand(command="next_svitlo", description="графік світла на завтра"),
+    BotCommand(command="next_svitlo2", description="графік 2.2 на завтра"),
 ]
 
 moderator_commands = user_commands + [

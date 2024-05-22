@@ -29,7 +29,7 @@ GREEN = 0
 WHITE = 1
 RED = 2
 
-emojis = {0: "🟢", 1: "⚪", 2: "🔴"}
+emojis = {GREEN: "🟢", WHITE: "⚪", RED: "🔴"}
 
 MON = 0
 TUE = 1
@@ -87,6 +87,7 @@ schedule = {
         GREEN,
         RED,
         WHITE,
+        GREEN,
         GREEN,
         GREEN,
         GREEN,
@@ -193,6 +194,7 @@ schedule_2 = {
         GREEN,
         GREEN,
         GREEN,
+        GREEN,
         RED,
         WHITE,
     ),
@@ -273,10 +275,10 @@ async def create_message(schedule, now, heading=None, footer=None, full=False):
     else:
         time_index = time_periods.index(time)
 
+    weekday = now.weekday()
+
     if full:
-        weekday = (now + timedelta(days=1)).weekday()
-    else:
-        weekday = now.weekday()
+        weekday = (weekday + 1) % 7
 
     start_time = dtime(0, 0)  # 00:00
     end_time = dtime(1, 0)  # 01:00
@@ -289,7 +291,7 @@ async def create_message(schedule, now, heading=None, footer=None, full=False):
 
     # Check if the current time is within the range
     if start_time <= current_time < end_time:
-        weekday = (weekday + 1) % 7
+        weekday = (weekday - 1) % 7
 
     if heading:
         text = f"{heading}\n➖➖➖➖➖➖➖➖➖\n"
@@ -304,6 +306,7 @@ async def create_message(schedule, now, heading=None, footer=None, full=False):
     for i_time in time_periods:
         empty = True
         i_time_index = time_periods.index(i_time)
+        print(i_time_index)
         if i_time_index > time_index:
             text += f"{emojis[schedule[weekday][i_time_index]]} {f'{html.bold(time_periods[i_time_index])}'}\n"
             empty = False
