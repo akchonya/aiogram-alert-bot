@@ -5,7 +5,7 @@
 That was (and still kinda is) my first aiogram bot. It was made for purely as a part of my coding journey (and, of course, fun). Even the name of the repo is outadated because it does much more (unfortunately) than just sending alert messages.
 
 > [!WARNING]
-> SHIT CODE WARNING. There isn't one good decision implemented there, *beileve me*. With that said, *please*, don't base any of your projects on this one, for your own mental sake.
+> **SHIT CODE WARNING.** There isn't one good decision implemented there, *beileve me*. With that said, *please*, don't base any of your projects on this one, for your own mental sake.
 
 The main reason that repo was not private is that I didn't know about deployment keys and github actions when I started, that's how bad everything was :skull:.
 
