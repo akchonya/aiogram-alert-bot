@@ -3,6 +3,9 @@
 """
 
 
+from datetime import datetime
+from pytz import timezone
+
 from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import Message, ReplyKeyboardRemove
@@ -45,6 +48,11 @@ async def hi_intro_handler(message: Message):
 @router.message(Command("svyato"))
 async def svyaro_handler(message: Message):
     svyato = await parse_page("https://daytoday.ua/sogodni/")
-    await message.answer(
-        f"🍾 <b>свята сьогодні:</b>\n{svyato}", reply_markup=ReplyKeyboardRemove()
-    )
+    text = f"🍾 <b>свята сьогодні:</b>\n{svyato}"
+    tz = timezone("Europe/Kiev")
+    current_time = datetime.now(tz)
+
+    if current_time.month == 5 and current_time.day == 31:
+        text += "🎉 <i>день народження валерії</i>"
+
+    await message.answer(text, reply_markup=ReplyKeyboardRemove())

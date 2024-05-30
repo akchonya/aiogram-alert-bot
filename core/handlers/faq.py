@@ -2,12 +2,16 @@
 /faq sends a link to the FAQ article
 """
 
-from pytz import timezone
-from datetime import datetime, timedelta
+from datetime import datetime
 from datetime import time as dtime
+
+from pytz import timezone
+from aiogram.enums import ParseMode
 from aiogram import Router, html
 from aiogram.filters import Command
-from aiogram.types import ReplyKeyboardRemove, Message
+from aiogram.types import (
+    Message,
+)
 
 
 time_periods = (
@@ -306,7 +310,7 @@ async def create_message(schedule, now, heading=None, footer=None, full=False):
     for i_time in time_periods:
         empty = True
         i_time_index = time_periods.index(i_time)
-        print(i_time_index)
+
         if i_time_index > time_index:
             text += f"{emojis[schedule[weekday][i_time_index]]} {f'{html.bold(time_periods[i_time_index])}'}\n"
             empty = False
@@ -325,9 +329,7 @@ router = Router()
 
 @router.message(Command("faq"))
 async def faq_handler(message: Message):
-    await message.answer(
-        "https://telegra.ph/Dormitory-3-09-10", reply_markup=ReplyKeyboardRemove()
-    )
+    await message.answer("https://telegra.ph/Dormitory-3-09-10")
 
 
 @router.message(Command("svitlo"))
