@@ -2,7 +2,7 @@
 /faq sends a link to the FAQ article
 """
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from datetime import time as dtime
 
 from pytz import timezone
@@ -279,6 +279,7 @@ async def create_message(schedule, now, heading=None, footer=None, full=False):
     else:
         time_index = time_periods.index(time)
 
+    print(time_index)
     weekday = now.weekday()
 
     if full:
@@ -318,6 +319,15 @@ async def create_message(schedule, now, heading=None, footer=None, full=False):
     if not empty:
         text += "➖➖➖➖➖➖➖➖➖\n"
 
+    if time_index == 11:
+        print("in if")
+        text = await create_message(
+            schedule,
+            now - timedelta(hours=2),
+            heading=text + html.bold("📄 графік після 00:00"),
+            full=True,
+        )
+
     if footer:
         text += f"{footer}"
 
@@ -338,7 +348,7 @@ async def svitlo_handler(message: Message):
 
     text = await create_message(
         schedule=schedule,
-        now=now,
+        now=now - timedelta(hours=1),
         heading=f"{html.bold('💡 група 3.2')}",
         footer=f"{html.link('ℹ️ актуальна інформація', 'https://t.me/svitlo_dorm3')}",
     )
@@ -352,7 +362,7 @@ async def svitlo2_handler(message: Message):
 
     text = await create_message(
         schedule=schedule_2,
-        now=now,
+        now=now - timedelta(hours=1),
         heading=f"{html.bold('💧 група 2.2')}",
         footer=f"{html.link('ℹ️ актуальна інформація', 'https://t.me/svitlo_dorm3')}",
     )
