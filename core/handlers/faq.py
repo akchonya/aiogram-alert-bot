@@ -320,7 +320,6 @@ async def create_message(schedule, now, heading=None, footer=None, full=False):
         text += "➖➖➖➖➖➖➖➖➖\n"
 
     if time_index == 11:
-        print("in if")
         text = await create_message(
             schedule,
             now - timedelta(hours=2),
@@ -348,7 +347,7 @@ async def svitlo_handler(message: Message):
 
     text = await create_message(
         schedule=schedule,
-        now=now - timedelta(hours=1),
+        now=now,
         heading=f"{html.bold('💡 група 3.2')}",
         footer=f"{html.link('ℹ️ актуальна інформація', 'https://t.me/svitlo_dorm3')}",
     )
@@ -362,7 +361,7 @@ async def svitlo2_handler(message: Message):
 
     text = await create_message(
         schedule=schedule_2,
-        now=now - timedelta(hours=1),
+        now=now,
         heading=f"{html.bold('💧 група 2.2')}",
         footer=f"{html.link('ℹ️ актуальна інформація', 'https://t.me/svitlo_dorm3')}",
     )
