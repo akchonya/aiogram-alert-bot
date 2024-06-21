@@ -6,13 +6,13 @@ from datetime import datetime, timedelta
 from datetime import time as dtime
 
 from pytz import timezone
-from aiogram.enums import ParseMode
-from aiogram import Router, html
+from aiogram import Router, html, Bot
 from aiogram.filters import Command
 from aiogram.types import (
     Message,
 )
 
+from core.utils.config import SVITLO_CHANNEL_ID
 
 time_periods = (
     "1:00-3:00",
@@ -333,6 +333,34 @@ async def create_message(schedule, now, heading=None, footer=None, full=False):
     return text
 
 
+async def next_svitlo(chat_id: int, bot: Bot):
+    now = datetime.now(tz=timezone("Europe/Kiev"))
+
+    text = await create_message(
+        schedule=schedule,
+        now=now,
+        heading=f"{html.bold('💡 графік групи 3.2 на завтра')}",
+        footer=f"{html.link('ℹ️ актуальна інформація', 'https://t.me/svitlo_dorm3')}",
+        full=True,
+    )
+
+    await bot.send_message(chat_id=chat_id, text=text, disable_web_page_preview=True)
+
+
+async def next_svitlo2(chat_id: int, bot: Bot):
+    now = datetime.now(tz=timezone("Europe/Kiev"))
+
+    text = await create_message(
+        schedule=schedule_2,
+        now=now,
+        heading=f"{html.bold('💧 графік групи 2.2 на завтра')}",
+        footer=f"{html.link('ℹ️ актуальна інформація', 'https://t.me/svitlo_dorm3')}",
+        full=True,
+    )
+
+    await bot.send_message(chat_id=chat_id, text=text, disable_web_page_preview=True)
+
+
 router = Router()
 
 
@@ -370,30 +398,16 @@ async def svitlo2_handler(message: Message):
 
 
 @router.message(Command("next_svitlo"))
-async def next_svitlo_handler(message: Message):
-    now = datetime.now(tz=timezone("Europe/Kiev"))
-
-    text = await create_message(
-        schedule=schedule,
-        now=now,
-        heading=f"{html.bold('💡 графік групи 3.2 на завтра')}",
-        footer=f"{html.link('ℹ️ актуальна інформація', 'https://t.me/svitlo_dorm3')}",
-        full=True,
-    )
-
-    await message.answer(text=text, disable_web_page_preview=True)
+async def next_svitlo_handler(message: Message, bot: Bot):
+    await next_svitlo(chat_id=message.chat.id, bot=bot)
 
 
 @router.message(Command("next_svitlo2"))
-async def next_svitlo2_handler(message: Message):
-    now = datetime.now(tz=timezone("Europe/Kiev"))
+async def next_svitlo2_handler(message: Message, bot: Bot):
+    await next_svitlo2(chat_id=message.chat.id, bot=bot)
 
-    text = await create_message(
-        schedule=schedule_2,
-        now=now,
-        heading=f"{html.bold('💧 графік групи 2.2 на завтра')}",
-        footer=f"{html.link('ℹ️ актуальна інформація', 'https://t.me/svitlo_dorm3')}",
-        full=True,
-    )
 
-    await message.answer(text=text, disable_web_page_preview=True)
+@router.message(Command("next_post"))
+async def next_handler(message: Message, bot: Bot):
+    await next_svitlo(chat_id=SVITLO_CHANNEL_ID, bot=bot)
+    await next_svitlo2(chat_id=SVITLO_CHANNEL_ID, bot=bot)

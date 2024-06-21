@@ -30,6 +30,7 @@ moderator_commands = user_commands + [
 ]
 
 admin_commands = user_commands + [
+    BotCommand(command="next_post", description="post next svitlo"),
     BotCommand(command="admin_panel", description="admin_panel"),
 ]
 

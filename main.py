@@ -45,6 +45,7 @@ async def on_startup(bot: Bot) -> None:
             "message",
             "chat_member",
             "callback_query",
+            "channel_post",
         ],  # allow updates needed
     )
 
