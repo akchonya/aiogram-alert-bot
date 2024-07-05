@@ -11,7 +11,7 @@ async def fetch(url):
 async def parse_page(url):
     html = await fetch(url)
     soup = BeautifulSoup(html, "html.parser")
-    elements_with_class = soup.find_all(class_="_self cvplbd")
+    elements_with_class = soup.find_all("a", class_="_self cvplbd")
     text = ""
     for element in elements_with_class:
         title_text = element.get_text(strip=True)
