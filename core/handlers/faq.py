@@ -370,6 +370,16 @@ async def faq_handler(message: Message):
 
 
 @router.message(Command("svitlo"))
+@router.message(Command("svitlo2"))
+@router.message(Command("next_svitlo"))
+@router.message(Command("next_svitlo2"))
+async def svitlo(message: Message):
+    text = f"{html.bold(html.link('ℹ️ актуальна інформація по світлу на день тут', 'https://t.me/svitlo_dorm3'))}\n\n⚠ {html.link(html.bold('тижневі графіки'), 'https://telegra.ph/Dormitory-3-09-10#%D0%B5%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE%D1%85%D0%B0%D1%80%D1%87%D1%83%D0%B2%D0%B0%D0%BD%D0%BD%D1%8F')} світла тимчасово не працюють"
+
+    await message.answer(f"{text}", disable_web_page_preview=True)
+
+
+@router.message(Command("svitlo"))
 async def svitlo_handler(message: Message):
     now = datetime.now(tz=timezone("Europe/Kiev"))
 
