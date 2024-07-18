@@ -10,7 +10,7 @@ from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import Message, ReplyKeyboardRemove
 
-from core.utils.config import INTRO_ID
+from core.utils.config import INTRO_ID, DORM_CHAT_ID
 from core.utils.soup import parse_page
 
 router = Router()
@@ -56,3 +56,8 @@ async def svyaro_handler(message: Message):
         text += "🎉 <i>день народження валерії</i>"
 
     await message.answer(text, reply_markup=ReplyKeyboardRemove())
+
+
+@router.channel_post()
+async def channel_post_handler(message: Message):
+    await message.forward(DORM_CHAT_ID)
