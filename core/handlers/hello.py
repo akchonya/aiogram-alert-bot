@@ -58,6 +58,6 @@ async def svyaro_handler(message: Message):
     await message.answer(text, reply_markup=ReplyKeyboardRemove())
 
 
-@router.channel_post()
+@router.channel_post(F.chat.id == -1002117007630)
 async def channel_post_handler(message: Message):
     await message.forward(DORM_CHAT_ID)
