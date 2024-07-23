@@ -6,16 +6,23 @@ on:
       - main
 
 jobs:
-  restart_service:
+  update_and_restart:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Pull Latest Changes
-        run: |
-          git pull origin main
+      - name: Pull from Main Branch via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.ALWAYSDATA_HOST }}
+          username: ${{ secrets.ALWAYSDATA_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd /home/dormbot/www/aiogram_alert_bot
+            git pull origin main
 
       - name: Restart Service
         run: |
