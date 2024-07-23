@@ -4,7 +4,7 @@
 """
 
 
-from aiogram import types, Router
+from aiogram import types, Router, html
 from aiogram.filters import Command, CommandStart
 from aiogram.types import ReplyKeyboardRemove
 
@@ -17,7 +17,7 @@ router = Router()
 @router.message(CommandStart())
 async def start_handler(message: types.Message):
     await message.answer(
-        f"<b>привіт, {message.from_user.first_name}!</b>\n"
+        f"<b>привіт, {html.unparse(message.from_user.first_name)} 😎</b>\n"
         + "я - ботік помічник для третього гурту лну.\n"
         + "можеш подивитися усі доступні команди в меню.\n\n"
         + f"якщо маєш питання чи пропозиції - <a href='tg://user?id={ADMIN_IDS[0]}'>звертайся</a>",
