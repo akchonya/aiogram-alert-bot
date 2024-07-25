@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Pull from Main Branch via SSH
+      - name: Pull from Main Branch and Install Requirements via SSH
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.ALWAYSDATA_HOST }}
@@ -22,7 +22,7 @@ jobs:
           port: 22
           script: |
             cd /home/dormbot/www/aiogram_alert_bot
-            git pull origin main
+            git pull origin main && pip install -r requirements.txt
 
       - name: Restart Service
         run: |
