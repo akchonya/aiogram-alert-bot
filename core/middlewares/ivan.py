@@ -16,7 +16,7 @@ class IvanMiddleware(BaseMiddleware):
         event: Message,
         data: Dict[str, Any],
     ) -> Any:
-        if not self.is_alina(event):
+        if not self.is_ivan(event):
             return await handler(event, data)
         await event.forward(IVAN_CHANNEL_ID)
         return await handler(event, data)
