@@ -6,6 +6,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 from core.middlewares.alina import AlinaMiddleware
+from core.middlewares.ivan import IvanMiddleware
 from core.handlers.start import router as start_router
 from core.handlers.alerts import alerts_router
 from core.handlers.faq import router as faq_router
@@ -54,6 +55,7 @@ def main() -> None:
     # Dispatcher is a root router
     dp = Dispatcher(alert_status="no_alert")
     dp.message.middleware(AlinaMiddleware())
+    dp.message.middleware(IvanMiddleware())
     # ... and all other routers should be attached to Dispatcher
     dp.include_routers(
         start_router,
