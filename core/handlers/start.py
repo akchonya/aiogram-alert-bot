@@ -1,8 +1,7 @@
 """
-/start greets a user 
+/start greets a user
 /help sends a list of aavailable commands
 """
-
 
 from aiogram import types, Router, html
 from aiogram.filters import Command, CommandStart
@@ -39,3 +38,11 @@ async def help_handler(message: types.Message):
         parse_mode="HTML",
         reply_markup=ReplyKeyboardRemove(),
     )
+
+
+empty_router = Router()
+
+
+@empty_router.message()
+async def empty():
+    pass
