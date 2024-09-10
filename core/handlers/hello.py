@@ -55,6 +55,9 @@ async def svyaro_handler(message: Message):
     if current_time.month == 5 and current_time.day == 31:
         text += "🎉 <i>день народження валерії</i>"
 
+    elif current_time.month == 9 and current_time.day == 10:
+        text += "🎉 <i>день народження нюсі</i>"
+
     await message.answer(text, reply_markup=ReplyKeyboardRemove())
 
 
