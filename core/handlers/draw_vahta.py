@@ -3,7 +3,7 @@ from pillow_bot.helpers import pillow_draw
 from aiogram import F, Router, Bot
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
-from aiogram.types import Message, ReplyKeyboardRemove
+from aiogram.types import Message, ReplyKeyboardRemove, FSInputFile
 from core.keyboards.draw_vahta_kb import vahta_chars_kb, vahta_rows_kb, vahta_columns_kb
 from core.filters.basic import isAdmin
 from core.utils.config import DORM_CHAT_ID
@@ -16,6 +16,11 @@ draw_vahta_router = Router()
 @draw_vahta_router.message(isAdmin(), Command("draw_vahta"))
 async def command_start(message: Message, state: FSMContext) -> None:
     await state.set_state(StatesDrawVahta.GET_CHAR)
+    photo = FSInputFile("pillow_bot/vahta.png")
+    await message.answer_photo(
+        photo=photo,
+        caption="vahta right now:",
+    )
     await message.answer(
         "Pick a characher or type /cancel to cancel.",
         reply_markup=vahta_chars_kb,

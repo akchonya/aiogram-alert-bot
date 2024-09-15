@@ -4,6 +4,11 @@ from core.utils.config import ADMIN_IDS
 
 
 MODER = int(ADMIN_IDS[1])
+
+# Please don't question my sanity
+MODERR = int(ADMIN_IDS[2])
+MODERRR = int(ADMIN_IDS[3])
+
 ADMIN = int(ADMIN_IDS[0])
 
 user_commands = [
@@ -39,5 +44,11 @@ async def set_commands(bot: Bot):
     await bot.set_my_commands(user_commands, BotCommandScopeDefault())
     await bot.set_my_commands(
         moderator_commands, scope=BotCommandScopeChat(chat_id=MODER)
+    )
+    await bot.set_my_commands(
+        moderator_commands, scope=BotCommandScopeChat(chat_id=MODERR)
+    )
+    await bot.set_my_commands(
+        moderator_commands, scope=BotCommandScopeChat(chat_id=MODERRR)
     )
     await bot.set_my_commands(admin_commands, scope=BotCommandScopeChat(chat_id=ADMIN))
