@@ -56,7 +56,7 @@ def main() -> None:
     # Dispatcher is a root router
     dp = Dispatcher(alert_status="no_alert")
     # dp.message.middleware(AlinaMiddleware())
-    dp.message.middleware(IvanMiddleware())
+    dp.message.outer_middleware(IvanMiddleware())
     # ... and all other routers should be attached to Dispatcher
     dp.include_routers(
         start_router,

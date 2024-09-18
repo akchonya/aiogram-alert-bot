@@ -63,11 +63,21 @@ async def dice(message: types.Message, bot: Bot):
     await bot.restrict_chat_member(
         message.chat.id,
         message.from_user.id,
-        types.ChatPermissions(False),
+        types.ChatPermissions(
+            can_send_messages=False,
+            can_send_audios=False,
+            can_send_documents=False,
+            can_send_photos=False,
+            can_send_videos=False,
+            can_send_video_notes=False,
+            can_send_voice_notes=False,
+            can_send_other_messages=False,
+            can_send_polls=False,
+        ),
         until_date=result,
     )
 
 
-@empty_router.message()
-async def empty():
-    pass
+# @empty_router.message()
+# async def empty():
+#     pass
