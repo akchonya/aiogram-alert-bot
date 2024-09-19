@@ -43,39 +43,40 @@ async def help_handler(message: types.Message):
 empty_router = Router()
 
 
-@empty_router.message(F.dice.emoji == "🎰", F.dice.value != 64)
+@empty_router.message(
+    F.dice.emoji == "🎰", F.dice.value != 64, F.chat.type == "supergroup"
+)
 async def dice(message: types.Message, bot: Bot):
     # Get the current datetime
     now = datetime.now()
 
-    # Calculate today's 10 AM
-    today_10am = now.replace(hour=10, minute=0, second=0, microsecond=0)
+    result = now + timedelta(hours=3)
 
-    # Determine whether to use today's or next day's 10 AM
-    if now > today_10am:
-        # If the current time is after 10 AM, set to next day's 10 AM
-        next_day = now + timedelta(days=1)
-        result = next_day.replace(hour=10, minute=0, second=0, microsecond=0)
-    else:
-        # If the current time is before or exactly 10 AM, set to today's 10 AM
-        result = today_10am
+    try:
+        await bot.restrict_chat_member(
+            message.chat.id,
+            message.from_user.id,
+            types.ChatPermissions(
+                can_send_messages=False,
+                can_send_audios=False,
+                can_send_documents=False,
+                can_send_photos=False,
+                can_send_videos=False,
+                can_send_video_notes=False,
+                can_send_voice_notes=False,
+                can_send_other_messages=False,
+                can_send_polls=False,
+            ),
+            until_date=result,
+        )
+        await message.reply("📵 нєпавєзло.. спробуйте за три годинки, а поки в мутік!")
+    except Exception as e:
+        print(e)
 
-    await bot.restrict_chat_member(
-        message.chat.id,
-        message.from_user.id,
-        types.ChatPermissions(
-            can_send_messages=False,
-            can_send_audios=False,
-            can_send_documents=False,
-            can_send_photos=False,
-            can_send_videos=False,
-            can_send_video_notes=False,
-            can_send_voice_notes=False,
-            can_send_other_messages=False,
-            can_send_polls=False,
-        ),
-        until_date=result,
-    )
+
+@empty_router.message(F.dice.emoji == "🎰", F.chat.type == "supergroup")
+async def dice_win(message: types.Message):
+    await message.reply("🍾 на годиннику шо 15 травня? звідки у нас тут переможець??")
 
 
 # @empty_router.message()
