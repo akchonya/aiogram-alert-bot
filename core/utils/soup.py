@@ -30,7 +30,7 @@ async def parse_page(url):
     elements_with_class = soup.find_all("a", class_="_self cvplbd")
     if not elements_with_class:
         logger.warning("No elements found with class '_self cvplbd'")
-        return "No elements found."
+        return "No elements found.\n"
 
     text = ""
     for element in elements_with_class:
