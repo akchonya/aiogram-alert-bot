@@ -42,6 +42,35 @@ async def help_handler(message: types.Message):
 
 empty_router = Router()
 
+@empty_router.message(
+    F.dice, F.forward_from, F.chat.type == "supergroup"
+)
+async def forward_from(message: types.Message, bot: Bot):
+    now = datetime.now()
+
+    result = now + timedelta(hours=6)
+
+    try:
+        await bot.restrict_chat_member(
+            message.chat.id,
+            message.from_user.id,
+            types.ChatPermissions(
+                can_send_messages=False,
+                can_send_audios=False,
+                can_send_documents=False,
+                can_send_photos=False,
+                can_send_videos=False,
+                can_send_video_notes=False,
+                can_send_voice_notes=False,
+                can_send_other_messages=False,
+                can_send_polls=False,
+            ),
+            until_date=result,
+        )
+        await message.reply("😇 ви шо тут самі хитрі? мут х2")
+    except Exception as e:
+        print(e)
+
 
 @empty_router.message(
     F.dice.emoji == "🎰", F.dice.value != 64, F.chat.type == "supergroup"
