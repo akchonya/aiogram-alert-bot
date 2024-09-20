@@ -108,6 +108,12 @@ async def dice_win(message: types.Message):
     await message.reply("🍾 на годиннику шо 15 травня? звідки у нас тут переможець??")
 
 
+@empty_router.message(F.dice)
+async def dice_delete(message: types.Message):
+    await message.delete()
+
+
+
 # @empty_router.message()
 # async def empty():
 #     pass
