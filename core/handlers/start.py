@@ -43,7 +43,7 @@ async def help_handler(message: types.Message):
 empty_router = Router()
 
 @empty_router.message(
-    F.dice, F.forward_from, F.chat.type == "supergroup"
+    F.dice, F.forward_date, F.chat.type == "supergroup"
 )
 async def forward_from(message: types.Message, bot: Bot):
     now = datetime.now()
