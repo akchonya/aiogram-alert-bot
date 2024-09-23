@@ -42,9 +42,8 @@ async def help_handler(message: types.Message):
 
 empty_router = Router()
 
-@empty_router.message(
-    F.dice, F.forward_date, F.chat.type == "supergroup"
-)
+
+@empty_router.message(F.dice, F.forward_date, F.chat.type == "supergroup")
 async def forward_from(message: types.Message, bot: Bot):
     now = datetime.now()
 
@@ -108,10 +107,10 @@ async def dice_win(message: types.Message):
     await message.reply("🍾 на годиннику шо 15 травня? звідки у нас тут переможець??")
 
 
+@empty_router.message(F.via_bot)
 @empty_router.message(F.dice)
 async def dice_delete(message: types.Message):
     await message.delete()
-
 
 
 # @empty_router.message()
