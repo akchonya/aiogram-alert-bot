@@ -71,40 +71,40 @@ async def forward_from(message: types.Message, bot: Bot):
         print(e)
 
 
-@empty_router.message(
-    F.dice.emoji == "🎰", F.dice.value != 64, F.chat.type == "supergroup"
-)
-async def dice(message: types.Message, bot: Bot):
-    # Get the current datetime
-    now = datetime.now()
+# @empty_router.message(
+#     F.dice.emoji == "🎰", F.dice.value != 64, F.chat.type == "supergroup"
+# )
+# async def dice(message: types.Message, bot: Bot):
+#     # Get the current datetime
+#     now = datetime.now()
 
-    result = now + timedelta(hours=3)
+#     result = now + timedelta(hours=3)
 
-    try:
-        await bot.restrict_chat_member(
-            message.chat.id,
-            message.from_user.id,
-            types.ChatPermissions(
-                can_send_messages=False,
-                can_send_audios=False,
-                can_send_documents=False,
-                can_send_photos=False,
-                can_send_videos=False,
-                can_send_video_notes=False,
-                can_send_voice_notes=False,
-                can_send_other_messages=False,
-                can_send_polls=False,
-            ),
-            until_date=result,
-        )
-        await message.reply("📵 нєпавєзло.. спробуйте за три годинки, а поки в мутік!")
-    except Exception as e:
-        print(e)
+#     try:~
+#         await bot.restrict_chat_member(
+#             message.chat.id,
+#             message.from_user.id,
+#             types.ChatPermissions(
+#                 can_send_messages=False,
+#                 can_send_audios=False,
+#                 can_send_documents=False,
+#                 can_send_photos=False,
+#                 can_send_videos=False,
+#                 can_send_video_notes=False,
+#                 can_send_voice_notes=False,
+#                 can_send_other_messages=False,
+#                 can_send_polls=False,
+#             ),
+#             until_date=result,
+#         )
+#         await message.reply("📵 нєпавєзло.. спробуйте за три годинки, а поки в мутік!")
+#     except Exception as e:
+#         print(e)
 
 
-@empty_router.message(F.dice.emoji == "🎰", F.chat.type == "supergroup")
-async def dice_win(message: types.Message):
-    await message.reply("🍾 на годиннику шо 15 травня? звідки у нас тут переможець??")
+# @empty_router.message(F.dice.emoji == "🎰", F.chat.type == "supergroup")
+# async def dice_win(message: types.Message):
+#     await message.reply("🍾 на годиннику шо 15 травня? звідки у нас тут переможець??")
 
 
 @empty_router.message(F.via_bot)
