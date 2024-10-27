@@ -22,6 +22,7 @@ from core.handlers.hello import router as hello_router
 from core.handlers.sell import router as sell_router
 from core.handlers.weather import router as weather_router
 from core.handlers.start import empty_router
+from core.handlers.laundry import router as laundry_router
 from core.utils.commands import set_commands
 from core.utils.config import (
     BOT_TOKEN,
@@ -75,6 +76,7 @@ def main() -> None:
         weather_router,
         sell_router,
         empty_router,
+        laundry_router,
     )
 
     # Register startup hook to initialize webhook
