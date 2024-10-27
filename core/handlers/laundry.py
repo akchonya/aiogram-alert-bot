@@ -60,5 +60,5 @@ async def laundry_handler(message: Message):
     first_info = format_wm_info(first)
     second_info = format_wm_info(second)
     
-    await message.answer(f"🧺 {html.bold('пралки:')}\n\n{html.bold('коридор:')}\n{first_info}\n\n{html.bold('умивальники:')}\n{second_info}\n\n👁‍🗨 {html.italic('автор ідеї:')} @clar1keth")
+    await message.answer(f"🧺 {html.bold('пралки:')}\n\n{html.link(html.bold('коридор:'), 'https://lcapp.bilantek.com/?tcn=743')}\n{first_info}\n\n{html.link(html.bold('умивальники:'), 'https://lcapp.bilantek.com/?tcn=744')}\n{second_info}\n\n👁‍🗨 {html.italic('автор ідеї:')} @clar1keth", disable_web_page_preview=True)
     
