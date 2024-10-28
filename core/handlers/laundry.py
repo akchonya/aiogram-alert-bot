@@ -37,23 +37,25 @@ async def laundry_handler(message: Message):
     def format_wm_info(wm_data):
         wm_info = []
         for wm in wm_data['WMs']:
+            number_display = "сушарка" if wm['Number'] == 8 else wm['Number']
+            
             if wm['IsActive'] is False and wm['ProgramState'] is not None:
                 left_symbol = wm['ProgramState']['LeftSymbol']
                 right_symbol = wm['ProgramState']['RightSymbol']
                 if left_symbol == "2" and right_symbol == "H":
-                    wm_info.append(f"🔴 {html.bold(wm['Number'])}: тимчасово не працює")
+                    wm_info.append(f"🔴 {html.bold(number_display)}: тимчасово не працює")
                 else:
-                    wm_info.append(f"🟢 {html.bold(wm['Number'])}: вільна")
+                    wm_info.append(f"🟢 {html.bold(number_display)}: вільна")
             elif wm['ProgramState'] is None or (wm['ProgramState']['LeftSymbol'] in ["", "\u0000"] and wm['ProgramState']['RightSymbol'] in ["", "\u0000"]):
-                wm_info.append(f"🟢 {html.bold(wm['Number'])}: вільна")
+                wm_info.append(f"🟢 {html.bold(number_display)}: вільна")
             else:
                 left_symbol = wm['ProgramState']['LeftSymbol']
                 right_symbol = wm['ProgramState']['RightSymbol']
                 if left_symbol == "2" and right_symbol == "H":
-                    wm_info.append(f"⌛ {html.bold(wm['Number'])}: більше 2 годин")
+                    wm_info.append(f"⌛ {html.bold(number_display)}: більше 2 годин")
                 else:
                     wm_info.append(
-                        f"⌛ {html.bold(wm['Number'])}: {left_symbol}{right_symbol} хв."
+                        f"⌛ {html.bold(number_display)}: {left_symbol}{right_symbol} хв."
                     )
         return "\n".join(wm_info)
     
