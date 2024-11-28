@@ -113,6 +113,6 @@ async def dice_delete(message: types.Message):
     await message.delete()
 
 
-@empty_router.message(F.from_user.id == ADMIN_IDS[0])
+@empty_router.message(F.from_user.id == ADMIN_IDS[0], F.chat.type == "private")
 async def empty(message: types.Message):
     await message.reply(message.html_text, parse_mode=None)
