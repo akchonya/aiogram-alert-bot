@@ -42,7 +42,7 @@ async def laundry_handler(message: Message):
             if wm['IsActive'] is False and wm['ProgramState'] is not None:
                 left_symbol = wm['ProgramState']['LeftSymbol']
                 right_symbol = wm['ProgramState']['RightSymbol']
-                if left_symbol == "2" and right_symbol == "H" or wm['WorkingState'] == '\u0432\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u043E':
+                if left_symbol == "2" and right_symbol == "H" or wm['ProgramState']['WorkingState'] == 'виключено':
                     wm_info.append(f"🔴 {html.bold(number_display)}: тимчасово не працює")
                 else:
                     wm_info.append(f"🟢 {html.bold(number_display)}: вільна")
