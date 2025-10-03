@@ -46,6 +46,8 @@ async def laundry_handler(message: Message):
                     wm_info.append(f"🔴 {html.bold(number_display)}: тимчасово не працює")
                 else:
                     wm_info.append(f"🟢 {html.bold(number_display)}: вільна")
+            elif wm['ProgramState']['WorkingState'] == "сушіння":
+                wm_info.append(f"⌛ {html.bold(number_display)}: сушіння")
             elif wm['ProgramState'] is None or (wm['ProgramState']['LeftSymbol'] in ["", "\u0000"] and wm['ProgramState']['RightSymbol'] in ["", "\u0000"]):
                 wm_info.append(f"🟢 {html.bold(number_display)}: вільна")
             else:
