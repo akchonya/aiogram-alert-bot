@@ -37,7 +37,14 @@ async def laundry_handler(message: Message):
     def format_wm_info(wm_data):
         wm_info = []
         for wm in wm_data['WMs']:
+            print(wm)
             number_display = "сушарка" if wm['Number'] in (8, 9) else wm['Number']
+            
+           
+            if wm['IsActive'] is False:
+                wm_info.append(f"🔴 {html.bold(number_display)}: тимчасово не працює")
+                continue
+                
             
             if wm['IsActive'] is False and wm['ProgramState'] is not None:
                 left_symbol = wm['ProgramState']['LeftSymbol']

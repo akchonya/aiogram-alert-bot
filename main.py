@@ -5,7 +5,6 @@ from aiohttp import web
 from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
-from core.middlewares.alina import AlinaMiddleware
 from core.middlewares.ivan import IvanMiddleware
 from core.middlewares.delete_message import DeleteMessageMiddleware
 from core.handlers.start import router as start_router
@@ -66,6 +65,7 @@ def main() -> None:
     
     # ... and all other routers should be attached to Dispatcher
     dp.include_routers(
+        laundry_router,
         start_router,
         alerts_router,
         faq_router,
@@ -82,7 +82,7 @@ def main() -> None:
         weather_router,
         sell_router,
         empty_router,
-        laundry_router,
+
     )
 
     # Register startup hook to initialize webhook

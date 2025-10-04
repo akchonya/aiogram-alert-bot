@@ -24,14 +24,14 @@ class DeleteMessageMiddleware(BaseMiddleware):
 
         # Create async tasks for delayed message deletion
         async def delete_current_message():
-            await asyncio.sleep(5)
+            await asyncio.sleep(7)
             try:
                 await bot.delete_message(event.chat.id, event.message_id)
             except Exception:
                 pass  # Ignore errors if message was already deleted
         
         async def delete_next_message():
-            await asyncio.sleep(5)
+            await asyncio.sleep(7)
             try:
                 await bot.delete_message(event.chat.id, event.message_id + 1)
             except Exception:
