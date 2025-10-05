@@ -17,7 +17,7 @@ class DeleteMessageMiddleware(BaseMiddleware):
             return await handler(event, data)
         
         # If message contains "погод" - just return
-        if "погод" in event.text.lower():
+        if "погод" in event.text.lower() or "експертиз" in event.text.lower():
             return await handler(event, data)
         
         bot = data["bot"]  # Get the bot instance from data
