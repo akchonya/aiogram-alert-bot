@@ -7,6 +7,7 @@ from aiogram import F, Bot, types, Router, html
 from aiogram.filters import Command, CommandStart
 from aiogram.types import ReplyKeyboardRemove
 from datetime import datetime, timedelta
+from pytz import timezone
 from ..utils.config import ADMIN_IDS
 
 
@@ -111,6 +112,42 @@ async def forward_from(message: types.Message, bot: Bot):
 @empty_router.message(F.dice)
 async def dice_delete(message: types.Message):
     await message.delete()
+
+
+@empty_router.message(F.text, F.chat.type == "supergroup")
+async def caps_lock_day_handler(message: types.Message, bot: Bot):
+    # Check if today is October 22nd
+    tz = timezone("Europe/Kiev")
+    current_time = datetime.now(tz)
+    
+    if current_time.month == 10 and current_time.day == 22:
+        # Check if message is text and not a command (doesn't start with /)
+        if message.text and not message.text.startswith('/'):
+            # Check if message contains lowercase letters
+            if any(c.islower() for c in message.text):
+                # Mute user for 1 hour
+                mute_until = current_time + timedelta(hours=1)
+                
+                try:
+                    await bot.restrict_chat_member(
+                        message.chat.id,
+                        message.from_user.id,
+                        types.ChatPermissions(
+                            can_send_messages=False,
+                            can_send_audios=False,
+                            can_send_documents=False,
+                            can_send_photos=False,
+                            can_send_videos=False,
+                            can_send_video_notes=False,
+                            can_send_voice_notes=False,
+                            can_send_other_messages=False,
+                            can_send_polls=False,
+                        ),
+                        until_date=mute_until,
+                    )
+                    await message.reply("СЬОГОДНІ ДЕНЬ КАПС ЛОКУ. ХТО ПИШЕ ЛОВЕРКЕЙСОМ МУТ НА ГОДИНУ.")
+                except Exception as e:
+                    print(f"Error muting user: {e}")
 
 
 @empty_router.message(F.from_user.id == ADMIN_IDS[0], F.chat.type == "private")
