@@ -9,9 +9,36 @@ from aiogram.types import ReplyKeyboardRemove
 from datetime import datetime, timedelta
 from pytz import timezone
 from ..utils.config import ADMIN_IDS
+from core.utils.commands import user_commands, moderator_commands, admin_commands
 
 
 router = Router()
+
+
+# Collect all bot commands across scopes
+COMMANDS = {
+    cmd.command
+    for cmd in (
+        list(user_commands)
+        + list(moderator_commands)
+        + list(admin_commands)
+    )
+}
+
+
+def is_real_command(text: str) -> bool:
+    if not text or not text.startswith("/"):
+        return False
+    token = text.split()[0]  # first word like /cmd@Bot arg
+    token_wo_slash = token[1:]
+    if "@" in token_wo_slash:
+        base, botname = token_wo_slash.split("@", 1)
+        # Only allow commands directed to this bot explicitly
+        if botname != "DormitoryFAQBot":
+            return False
+    else:
+        base = token_wo_slash
+    return base in COMMANDS
 
 
 @router.message(CommandStart())
@@ -124,9 +151,9 @@ async def caps_lock_day_handler(message: types.Message, bot: Bot):
         # Check both text and caption for lowercase
         text_to_check = None
         
-        if message.text and not message.text.startswith('/'):
+        if message.text and not is_real_command(message.text):
             text_to_check = message.text
-        elif message.caption and not message.caption.startswith('/'):
+        elif message.caption and not is_real_command(message.caption):
             text_to_check = message.caption
             
         if text_to_check and any(c.islower() for c in text_to_check):
