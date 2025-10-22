@@ -160,16 +160,32 @@ async def caps_lock_day_handler(message: types.Message, bot: Bot):
     tz = timezone("Europe/Kiev")
     current_time = datetime.now(tz)
     
+    print(f"DEBUG: Current date: {current_time.month}/{current_time.day}")
+    print(f"DEBUG: Message text: '{message.text}'")
+    print(f"DEBUG: Message caption: '{message.caption}'")
+    
     if current_time.month == 10 and current_time.day == 22:
         # Check both text and caption for lowercase
         text_to_check = None
         
-        if message.text and not is_real_command(message.text):
-            text_to_check = message.text
-        elif message.caption and not is_real_command(message.caption):
-            text_to_check = message.caption
+        if message.text:
+            is_cmd = is_real_command(message.text)
+            print(f"DEBUG: Text is_real_command: {is_cmd}")
+            if not is_cmd:
+                text_to_check = message.text
+        elif message.caption:
+            is_cmd = is_real_command(message.caption)
+            print(f"DEBUG: Caption is_real_command: {is_cmd}")
+            if not is_cmd:
+                text_to_check = message.caption
+            
+        print(f"DEBUG: text_to_check: '{text_to_check}'")
+        if text_to_check:
+            has_lower = any(c.islower() for c in text_to_check)
+            print(f"DEBUG: has_lowercase: {has_lower}")
             
         if text_to_check and any(c.islower() for c in text_to_check):
+            print("DEBUG: MUTING USER!")
             # Mute user for 1 hour
             mute_until = current_time + timedelta(hours=1)
             
