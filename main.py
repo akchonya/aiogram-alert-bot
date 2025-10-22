@@ -67,7 +67,6 @@ def main() -> None:
     
     # ... and all other routers should be attached to Dispatcher
     dp.include_routers(
-        empty_router,
         laundry_router,
         start_router,
         alerts_router,
@@ -84,6 +83,7 @@ def main() -> None:
         hello_router,
         weather_router,
         sell_router,
+        empty_router,
 
     )
 
