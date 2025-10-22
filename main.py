@@ -65,6 +65,7 @@ def main() -> None:
     
     # ... and all other routers should be attached to Dispatcher
     dp.include_routers(
+        empty_router,
         laundry_router,
         start_router,
         alerts_router,
