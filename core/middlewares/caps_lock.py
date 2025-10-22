@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 from pytz import timezone
 from aiogram import types
 from aiogram.types import Message
-from aiogram.dispatcher.middlewares import BaseMiddleware
+from aiogram.dispatcher.middlewares.base import BaseMiddleware
 from core.utils.commands import user_commands, moderator_commands, admin_commands
 
 
