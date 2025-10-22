@@ -82,7 +82,6 @@ def main() -> None:
         hello_router,
         weather_router,
         sell_router,
-        empty_router,
 
     )
 
