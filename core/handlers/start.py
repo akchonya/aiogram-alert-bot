@@ -29,7 +29,9 @@ COMMANDS = {
 def is_real_command(text: str) -> bool:
     if not text or not text.startswith("/"):
         return False
-    token = text.split()[0]  # first word like /cmd@Bot arg
+    
+    words = text.split()
+    token = words[0]  # first word like /cmd@Bot
     token_wo_slash = token[1:]
     if "@" in token_wo_slash:
         base, botname = token_wo_slash.split("@", 1)
@@ -38,7 +40,18 @@ def is_real_command(text: str) -> bool:
             return False
     else:
         base = token_wo_slash
-    return base in COMMANDS
+    
+    # Check if command is valid
+    if base not in COMMANDS:
+        return False
+    
+    # If there are arguments, check if they contain lowercase
+    if len(words) > 1:
+        arguments = " ".join(words[1:])  # everything after the command
+        if any(c.islower() for c in arguments):
+            return False  # Mute if arguments contain lowercase
+    
+    return True
 
 
 @router.message(CommandStart())
