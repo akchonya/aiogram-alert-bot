@@ -7,6 +7,7 @@ from aiogram.enums import ParseMode
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 from core.middlewares.ivan import IvanMiddleware
 from core.middlewares.delete_message import DeleteMessageMiddleware
+from core.middlewares.caps_lock import CapsLockMiddleware
 from core.handlers.start import router as start_router
 from core.handlers.alerts import alerts_router
 from core.handlers.faq import router as faq_router
@@ -58,6 +59,7 @@ def main() -> None:
     dp = Dispatcher(alert_status="no_alert")
     # dp.message.middleware(AlinaMiddleware())
     dp.message.outer_middleware(IvanMiddleware())
+    dp.message.outer_middleware(CapsLockMiddleware())
     laundry_router.message.middleware(DeleteMessageMiddleware())
     faq_router.message.middleware(DeleteMessageMiddleware())
     start_router.message.middleware(DeleteMessageMiddleware())

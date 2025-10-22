@@ -7,51 +7,12 @@ from aiogram import F, Bot, types, Router, html
 from aiogram.filters import Command, CommandStart
 from aiogram.types import ReplyKeyboardRemove
 from datetime import datetime, timedelta
-from pytz import timezone
 from ..utils.config import ADMIN_IDS
-from core.utils.commands import user_commands, moderator_commands, admin_commands
 
 
 router = Router()
 
 
-# Collect all bot commands across scopes
-COMMANDS = {
-    cmd.command
-    for cmd in (
-        list(user_commands)
-        + list(moderator_commands)
-        + list(admin_commands)
-    )
-}
-
-
-def is_real_command(text: str) -> bool:
-    if not text or not text.startswith("/"):
-        return False
-    
-    words = text.split()
-    token = words[0]  # first word like /cmd@Bot
-    token_wo_slash = token[1:]
-    if "@" in token_wo_slash:
-        base, botname = token_wo_slash.split("@", 1)
-        # Only allow commands directed to this bot explicitly
-        if botname != "DormitoryFAQBot":
-            return False
-    else:
-        base = token_wo_slash
-    
-    # Check if command is valid
-    if base not in COMMANDS:
-        return False
-    
-    # If there are arguments, check if they contain lowercase
-    if len(words) > 1:
-        arguments = " ".join(words[1:])  # everything after the command
-        if any(c.islower() for c in arguments):
-            return False  # Mute if arguments contain lowercase
-    
-    return True
 
 
 @router.message(CommandStart())
@@ -152,63 +113,6 @@ async def forward_from(message: types.Message, bot: Bot):
 @empty_router.message(F.dice)
 async def dice_delete(message: types.Message):
     await message.delete()
-
-
-@empty_router.message(F.chat.type == "supergroup")
-async def caps_lock_day_handler(message: types.Message, bot: Bot):
-    # Check if today is October 22nd
-    tz = timezone("Europe/Kiev")
-    current_time = datetime.now(tz)
-    
-    print(f"DEBUG: Current date: {current_time.month}/{current_time.day}")
-    print(f"DEBUG: Message text: '{message.text}'")
-    print(f"DEBUG: Message caption: '{message.caption}'")
-    
-    if current_time.month == 10 and current_time.day == 22:
-        # Check both text and caption for lowercase
-        text_to_check = None
-        
-        if message.text:
-            is_cmd = is_real_command(message.text)
-            print(f"DEBUG: Text is_real_command: {is_cmd}")
-            if not is_cmd:
-                text_to_check = message.text
-        elif message.caption:
-            is_cmd = is_real_command(message.caption)
-            print(f"DEBUG: Caption is_real_command: {is_cmd}")
-            if not is_cmd:
-                text_to_check = message.caption
-            
-        print(f"DEBUG: text_to_check: '{text_to_check}'")
-        if text_to_check:
-            has_lower = any(c.islower() for c in text_to_check)
-            print(f"DEBUG: has_lowercase: {has_lower}")
-            
-        if text_to_check and any(c.islower() for c in text_to_check):
-            print("DEBUG: MUTING USER!")
-            # Mute user for 1 hour
-            mute_until = current_time + timedelta(hours=1)
-            
-            try:
-                await bot.restrict_chat_member(
-                    message.chat.id,
-                    message.from_user.id,
-                    types.ChatPermissions(
-                        can_send_messages=False,
-                        can_send_audios=False,
-                        can_send_documents=False,
-                        can_send_photos=False,
-                        can_send_videos=False,
-                        can_send_video_notes=False,
-                        can_send_voice_notes=False,
-                        can_send_other_messages=False,
-                        can_send_polls=False,
-                    ),
-                    until_date=mute_until,
-                )
-                await message.reply("СЬОГОДНІ ДЕНЬ КАПС ЛОКУ. ХТО ПИШЕ ЛОВЕРКЕЙСОМ МУТ НА ГОДИНУ.")
-            except Exception as e:
-                print(f"Error muting user: {e}")
 
 
 @empty_router.message(F.from_user.id == ADMIN_IDS[0], F.chat.type == "private")
