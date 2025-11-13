@@ -66,7 +66,7 @@ class CapsLockMiddleware(BaseMiddleware):
         tz = timezone("Europe/Kiev")
         current_time = datetime.now(tz)
         
-        if current_time.month == 10 and current_time.day == 22:
+        if (current_time.month == 10 and current_time.day == 22) or (current_time.month == 12 and current_time.day == 24):
             # Check both text and caption for lowercase
             text_to_check = None
             

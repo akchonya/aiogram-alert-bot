@@ -60,6 +60,9 @@ async def svyaro_handler(message: Message):
         
     elif current_time.month == 9 and current_time.day == 20:
         text += "🎉 <i>день народження легенди юлі</i>"
+    
+    elif current_time.month == 12 and current_time.day == 24:
+        text += "🎉 <i>ВСЕГУРТОЖИТСЬКИЙ ДЕНЬ КАПС ЛОКУ</i>"
 
     await message.answer(text, reply_markup=ReplyKeyboardRemove())
 
