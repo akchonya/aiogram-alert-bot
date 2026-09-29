@@ -1,17 +1,27 @@
 import logging
-from bs4 import BeautifulSoup
 import aiohttp
+from bs4 import BeautifulSoup
 
-
-# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
+    ),
+    "Accept-Language": "uk-UA,uk;q=0.9",
+}
 
-async def fetch(url):
+
+async def fetch(url: str) -> str | None:
     try:
-        async with aiohttp.ClientSession() as session:
+        timeout = aiohttp.ClientTimeout(total=15)
+        async with aiohttp.ClientSession(headers=HEADERS, timeout=timeout) as session:
             async with session.get(url) as response:
+                if response.status != 200:
+                    logger.error(f"Bad status {response.status} for {url}")
+                    return None
                 html = await response.text()
                 logger.info("Fetched HTML successfully.")
                 return html
@@ -20,21 +30,30 @@ async def fetch(url):
         return None
 
 
-async def parse_page(url):
+async def parse_page(url: str) -> str:
     html = await fetch(url)
     if html is None:
-        return "Failed to fetch the page."
+        return "Не вдалося завантажити сторінку.\n"
+
     soup = BeautifulSoup(html, "html.parser")
-    logger.info("Parsed HTML with BeautifulSoup.")
 
-    elements_with_class = soup.find_all("a", class_="_self cvplbd")
-    if not elements_with_class:
-        logger.warning("No elements found with class '_self cvplbd'")
-        return "No elements found.\n"
+    # Новий формат: картки плагіна holiday-hub
+    links = soup.select("article.hh-card h3.hh-card__title a")
 
-    text = ""
-    for element in elements_with_class:
-        title_text = element.get_text(strip=True)
-        logger.info(f"Found element: {title_text}")
-        text += f"{title_text}\n"
-    return text
+    # Запасний варіант на випадок, якщо повернуть старий формат
+    if not links:
+        logger.warning("hh-card not found, trying old selector")
+        links = soup.select("a._self.cvplbd")
+
+    titles = []
+    for a in links:
+        title = a.get_text(strip=True)
+        if title and title != "Детальніше" and title not in titles:
+            titles.append(title)
+
+    if not titles:
+        logger.warning("No holidays found on the page")
+        return "Свят не знайдено.\n"
+
+    logger.info(f"Found {len(titles)} holidays")
+    return "".join(f"{t}\n" for t in titles)
