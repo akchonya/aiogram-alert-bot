@@ -37,4 +37,4 @@ async def vahta_text_handler(message: types.Message):
 
 @vahta_router.message(F.text.casefold().contains("експертиз"))
 async def eblan(message: types.Message):
-    await message.answer("<b>нагадування:</b> експертиза уєбан", parse_mode="HTML")
+    await message.answer("помянєм лайком.", parse_mode="HTML")
